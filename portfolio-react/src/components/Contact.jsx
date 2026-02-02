@@ -28,8 +28,7 @@ const Contact = () => {
         >
           <div className="contact-box card">
             <p className="contact-message">
-              Looking for Software Engineer, Data Engineer, or ML Engineer roles starting Summer 2026. 
-              Let's build something amazing together!
+              I'd love to hear from you. Whether it's a job opportunity, a collaboration, or just a conversation about technology, feel free to reach out.
             </p>
 
             <div className="contact-links">

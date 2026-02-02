@@ -1,0 +1,139 @@
+.resume-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.resume-modal-content {
+  background: var(--white);
+  border: var(--border-thick);
+  padding: 40px;
+  max-width: 800px;
+  width: 100%;
+  box-shadow: var(--shadow-brutal-xl);
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: var(--accent-pink);
+  border: var(--border);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: var(--white);
+}
+
+.modal-close:hover {
+  transform: rotate(90deg);
+  background: var(--black);
+}
+
+.modal-title {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 30px;
+  background: var(--accent-yellow);
+  border: var(--border);
+  padding: 15px;
+  margin: -40px -40px 30px -40px;
+}
+
+.resume-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.resume-option {
+  background: var(--bg-primary);
+  border: var(--border);
+  padding: 30px 20px;
+  text-align: center;
+  text-decoration: none;
+  color: var(--black);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.resume-option::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 100%;
+  height: 100%;
+  background: var(--accent-blue);
+  border: var(--border);
+  z-index: -1;
+  transition: all 0.3s ease;
+}
+
+.resume-option:hover::after {
+  transform: translate(6px, 6px);
+}
+
+.resume-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.resume-option h4 {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.resume-option p {
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+  color: var(--text-secondary);
+}
+
+.download-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--accent-yellow);
+  border: 3px solid var(--black);
+  padding: 8px 16px;
+  margin: 15px auto 0;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  width: fit-content;
+}
+
+@media (max-width: 768px) {
+  .resume-modal-content {
+    padding: 30px 20px;
+  }
+
+  .modal-title {
+    font-size: 1.5rem;
+    margin: -30px -20px 20px -20px;
+  }
+
+  .resume-options {
+    grid-template-columns: 1fr;
+  }
+}
