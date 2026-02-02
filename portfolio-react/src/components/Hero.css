@@ -1,0 +1,144 @@
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+}
+
+.hero-3d-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  opacity: 0.3;
+}
+
+.hero-container {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.hero-title-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 40px;
+}
+
+.hero-title-char {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 700;
+  color: var(--black);
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.hero-box {
+  background: var(--accent-yellow);
+  border: var(--border-thick);
+  padding: 40px;
+  margin: 40px auto;
+  max-width: 900px;
+  box-shadow: var(--shadow-brutal-xl);
+  transform: rotate(-1deg);
+}
+
+.hero-tagline {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.hero-subtitle {
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 600;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+
+.hero-buttons .btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.floating-shapes {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.shape {
+  position: absolute;
+  border: var(--border);
+}
+
+.shape-1 {
+  width: 100px;
+  height: 100px;
+  background: var(--accent-pink);
+  top: 10%;
+  left: 10%;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.shape-2 {
+  width: 80px;
+  height: 80px;
+  background: var(--accent-blue);
+  border-radius: 50%;
+  top: 70%;
+  right: 15%;
+}
+
+.shape-3 {
+  width: 120px;
+  height: 120px;
+  background: var(--accent-green);
+  bottom: 15%;
+  left: 15%;
+  transform: rotate(45deg);
+}
+
+@media (max-width: 768px) {
+  .hero-box {
+    padding: 30px 20px;
+    margin: 30px 20px;
+    transform: rotate(0deg);
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    padding: 0 20px;
+  }
+
+  .hero-buttons .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .floating-shapes {
+    display: none;
+  }
+}
