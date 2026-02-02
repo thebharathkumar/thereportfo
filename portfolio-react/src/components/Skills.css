@@ -1,0 +1,26 @@
+.skills {
+  background: var(--bg-secondary);
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 60px;
+}
+
+.skill-category h3 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  background: var(--accent-yellow);
+  border: 3px solid var(--black);
+  padding: 10px;
+  margin: -32px -32px 20px -32px;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}

@@ -1,0 +1,27 @@
+.publications {
+  background: var(--bg-secondary);
+}
+
+.publication-card {
+  max-width: 800px;
+  margin: 60px auto 0;
+  text-align: center;
+  background: var(--accent-pink);
+  color: var(--white);
+}
+
+.pub-badge {
+  background: var(--accent-yellow);
+  color: var(--black);
+  border: 3px solid var(--black);
+  padding: 8px 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.publication-card h3 {
+  font-size: 2rem;
+  margin: 20px 0;
+}
