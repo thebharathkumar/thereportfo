@@ -1,3 +1,264 @@
+#!/bin/bash
+
+# Update Hero.css for mobile
+cat > src/components/Hero.css << 'EOF'
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  padding-top: 80px;
+}
+
+.hero-3d-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  opacity: 0.3;
+}
+
+.hero-container {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  width: 100%;
+}
+
+.hero-title-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 40px;
+  padding: 0 10px;
+}
+
+.hero-title-char {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 5vw, 5rem);
+  font-weight: 700;
+  color: var(--black);
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.hero-box {
+  background: var(--accent-yellow);
+  border: var(--border-thick);
+  padding: 40px;
+  margin: 40px auto;
+  max-width: 900px;
+  box-shadow: var(--shadow-brutal-xl);
+  transform: rotate(-1deg);
+}
+
+.hero-tagline {
+  font-family: var(--font-heading);
+  font-size: clamp(1.2rem, 3vw, 2.5rem);
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+
+.hero-subtitle {
+  font-size: clamp(0.9rem, 2vw, 1.3rem);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 40px;
+  padding: 0 10px;
+}
+
+.hero-buttons .btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 200px;
+}
+
+.floating-shapes {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.shape {
+  position: absolute;
+  border: var(--border);
+}
+
+.shape-1 {
+  width: 80px;
+  height: 80px;
+  background: var(--accent-pink);
+  top: 10%;
+  left: 10%;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.shape-2 {
+  width: 60px;
+  height: 60px;
+  background: var(--accent-blue);
+  border-radius: 50%;
+  top: 70%;
+  right: 15%;
+}
+
+.shape-3 {
+  width: 90px;
+  height: 90px;
+  background: var(--accent-green);
+  bottom: 15%;
+  left: 15%;
+  transform: rotate(45deg);
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .hero-box {
+    padding: 35px 30px;
+    margin: 30px 20px;
+  }
+
+  .hero-buttons {
+    gap: 12px;
+  }
+
+  .shape-1, .shape-2, .shape-3 {
+    opacity: 0.5;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .hero {
+    min-height: auto;
+    padding: 100px 15px 60px;
+  }
+
+  .hero-3d-background {
+    opacity: 0.15;
+  }
+
+  .hero-title-char {
+    font-size: clamp(1.2rem, 4vw, 2rem);
+  }
+
+  .hero-title-wrapper {
+    gap: 2px;
+    margin-bottom: 30px;
+  }
+
+  .hero-box {
+    padding: 25px 20px;
+    margin: 30px 15px;
+    transform: rotate(0deg);
+  }
+
+  .hero-tagline {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    margin-bottom: 15px;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(0.85rem, 2vw, 1rem);
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 30px;
+    padding: 0 15px;
+  }
+
+  .hero-buttons .btn {
+    width: 100%;
+    min-width: 100%;
+    justify-content: center;
+    padding: 14px 20px;
+    font-size: 0.9rem;
+  }
+
+  .floating-shapes {
+    display: none;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .hero {
+    padding: 90px 12px 50px;
+  }
+
+  .hero-title-char {
+    font-size: 1rem;
+  }
+
+  .hero-box {
+    padding: 20px 15px;
+    margin: 20px 10px;
+  }
+
+  .hero-tagline {
+    font-size: 0.95rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.8rem;
+  }
+
+  .hero-buttons .btn {
+    padding: 12px 18px;
+    font-size: 0.85rem;
+    gap: 6px;
+  }
+}
+
+/* Landscape Mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero {
+    min-height: auto;
+    padding: 80px 15px 40px;
+  }
+
+  .hero-box {
+    padding: 20px;
+    margin: 20px auto;
+  }
+
+  .hero-buttons {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .hero-buttons .btn {
+    width: auto;
+    min-width: 150px;
+  }
+}
+EOF
+
+# Update ResumeModal.css for mobile
+cat > src/components/ResumeModal.css << 'EOF'
 .resume-modal-overlay {
   position: fixed;
   top: 0;
@@ -266,3 +527,6 @@
     transform: none;
   }
 }
+EOF
+
+echo "✅ Mobile-optimized Hero and ResumeModal updated!"

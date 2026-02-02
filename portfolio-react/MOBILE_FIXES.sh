@@ -1,3 +1,7 @@
+#!/bin/bash
+
+# Update App.css with better mobile responsiveness
+cat > src/App.css << 'EOF'
 /* ===================================
    NEO-BRUTALISM PORTFOLIO - 3D ANIMATED
    Mobile-First & Fully Responsive
@@ -487,3 +491,6 @@ h3 {
     padding: 80px 15px 40px;
   }
 }
+EOF
+
+echo "✅ Mobile-optimized App.css updated!"
