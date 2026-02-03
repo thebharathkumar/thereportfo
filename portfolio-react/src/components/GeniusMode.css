@@ -598,6 +598,277 @@
   }
 }
 
+/* Lightning Bolts */
+.genius-lightning {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9993;
+  pointer-events: none;
+}
+
+.lightning-bolt {
+  position: absolute;
+  color: #FFC700;
+  filter: drop-shadow(0 0 20px #FFC700);
+  transform-origin: top;
+}
+
+/* Pulse Rings */
+.genius-pulse-rings {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9987;
+  pointer-events: none;
+}
+
+.pulse-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  margin: -100px;
+  border: 4px solid #00F5FF;
+  border-radius: 50%;
+  box-shadow: 0 0 30px #00F5FF, inset 0 0 30px #00F5FF;
+}
+
+/* Central Genius Badge */
+.genius-central-badge {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9996;
+  pointer-events: none;
+}
+
+.badge-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 199, 0, 0.4) 0%, transparent 70%);
+  animation: badge-pulse 2s ease-in-out infinite;
+}
+
+@keyframes badge-pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 1;
+  }
+}
+
+.badge-content {
+  position: relative;
+  background: linear-gradient(135deg, #FF006E, #FFC700, #00F5FF);
+  border: 4px solid var(--black);
+  padding: 20px 30px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 0 40px rgba(255, 199, 0, 0.8), 8px 8px 0px var(--black);
+  animation: badge-float 3s ease-in-out infinite;
+}
+
+@keyframes badge-float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.badge-content svg {
+  color: var(--white);
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
+  animation: sparkle-spin 4s linear infinite;
+}
+
+@keyframes sparkle-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.badge-text {
+  color: var(--white);
+  text-align: center;
+}
+
+.badge-title {
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.badge-value {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: 4px;
+  text-shadow:
+    0 0 10px rgba(255, 255, 255, 0.8),
+    0 0 20px rgba(255, 255, 255, 0.6);
+}
+
+/* Floating Code Snippets */
+.genius-code-float {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9991;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.code-snippet {
+  position: absolute;
+  font-family: 'Courier New', monospace;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #00FF88;
+  text-shadow:
+    0 0 10px #00FF88,
+    0 0 20px #00FF88;
+  padding: 8px 16px;
+  background: rgba(0, 0, 0, 0.7);
+  border: 2px solid #00FF88;
+  border-radius: 4px;
+}
+
+/* Energy Beams */
+.genius-energy-beams {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9986;
+  pointer-events: none;
+}
+
+.energy-beam {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00F5FF, transparent);
+  box-shadow: 0 0 15px #00F5FF;
+}
+
+/* Mobile Optimizations for New Elements */
+@media (max-width: 768px) {
+  .genius-central-badge {
+    top: 15%;
+  }
+
+  .badge-content {
+    padding: 15px 20px;
+    gap: 10px;
+  }
+
+  .badge-content svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .badge-title {
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+  }
+
+  .badge-value {
+    font-size: 1rem;
+    letter-spacing: 2px;
+  }
+
+  .lightning-bolt svg {
+    width: 25px;
+    height: 25px;
+  }
+
+  .pulse-ring {
+    width: 150px;
+    height: 150px;
+    margin: -75px;
+    border-width: 2px;
+  }
+
+  .code-snippet {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+  }
+
+  .energy-beam {
+    height: 1px;
+  }
+
+  /* Hide some effects on mobile for performance */
+  .genius-lightning .lightning-bolt:nth-child(n+4) {
+    display: none;
+  }
+
+  .genius-code-float .code-snippet:nth-child(n+4) {
+    display: none;
+  }
+
+  .genius-energy-beams .energy-beam:nth-child(n+5) {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .genius-central-badge {
+    top: 12%;
+  }
+
+  .badge-content {
+    padding: 10px 15px;
+    gap: 8px;
+    border-width: 3px;
+  }
+
+  .badge-content svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .badge-title {
+    font-size: 0.5rem;
+    letter-spacing: 1px;
+  }
+
+  .badge-value {
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+  }
+
+  .pulse-ring {
+    width: 100px;
+    height: 100px;
+    margin: -50px;
+  }
+}
+
 /* Reduce animations for users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .genius-mode-toggle,
@@ -605,7 +876,13 @@
   .stat-icon,
   .achievement-badge,
   .genius-aura,
-  .genius-brain {
+  .genius-brain,
+  .lightning-bolt,
+  .pulse-ring,
+  .badge-glow,
+  .badge-content,
+  .code-snippet,
+  .energy-beam {
     animation: none !important;
     transition: none !important;
   }
@@ -613,5 +890,13 @@
   .matrix-column {
     animation: none !important;
     opacity: 0.2;
+  }
+
+  .genius-central-badge,
+  .genius-lightning,
+  .genius-pulse-rings,
+  .genius-code-float,
+  .genius-energy-beams {
+    display: none;
   }
 }

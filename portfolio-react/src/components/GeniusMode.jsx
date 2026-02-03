@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Sparkles, Trophy, Brain, Zap, Award, Star } from 'lucide-react'
+import { Sparkles, Trophy, Brain, Zap, Award, Star, Bot, Rocket } from 'lucide-react'
 import './GeniusMode.css'
 
 const GeniusMode = () => {
@@ -12,8 +12,10 @@ const GeniusMode = () => {
     { label: 'AI/ML Projects', value: 7, icon: Brain, color: '#FF006E' },
     { label: 'Certifications', value: 10, icon: Award, color: '#FFC700' },
     { label: 'Users Impacted', value: '3000+', icon: Trophy, color: '#00F5FF' },
+    { label: 'Automations Built', value: '15+', icon: Bot, color: '#FF006E' },
     { label: 'Tech Stack Mastery', value: '30+', icon: Zap, color: '#00FF88' },
-    { label: 'Published Papers', value: 1, icon: Star, color: '#FF006E' }
+    { label: 'Published Papers', value: 1, icon: Star, color: '#FFC700' },
+    { label: 'Projects Deployed', value: '25+', icon: Rocket, color: '#00F5FF' }
   ]
 
   const achievements = [
@@ -251,6 +253,140 @@ const GeniusMode = () => {
             >
               <Brain size={100} strokeWidth={1.5} />
             </motion.div>
+
+            {/* Lightning Bolts */}
+            <div className="genius-lightning">
+              {[...Array(6)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="lightning-bolt"
+                  initial={{ opacity: 0, scaleY: 0 }}
+                  animate={{ opacity: [0, 1, 0], scaleY: [0, 1, 0] }}
+                  transition={{
+                    duration: 0.5,
+                    repeat: Infinity,
+                    delay: i * 0.8,
+                    repeatDelay: 2
+                  }}
+                  style={{
+                    left: `${10 + i * 15}%`,
+                    top: `${Math.random() * 30}%`
+                  }}
+                >
+                  <Zap size={40} />
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Pulse Rings */}
+            <div className="genius-pulse-rings">
+              {[...Array(4)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="pulse-ring"
+                  initial={{ scale: 0, opacity: 0.8 }}
+                  animate={{ scale: 3, opacity: 0 }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    delay: i * 0.75,
+                    ease: 'easeOut'
+                  }}
+                />
+              ))}
+            </div>
+
+            {/* Central Genius Badge */}
+            <motion.div
+              className="genius-central-badge"
+              initial={{ scale: 0, rotate: -180 }}
+              animate={{
+                scale: [1, 1.1, 1],
+                rotate: 0
+              }}
+              transition={{
+                scale: {
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: 'easeInOut'
+                },
+                rotate: {
+                  duration: 1,
+                  ease: 'easeOut'
+                }
+              }}
+            >
+              <div className="badge-glow"></div>
+              <div className="badge-content">
+                <Sparkles size={30} />
+                <div className="badge-text">
+                  <div className="badge-title">GENIUS LEVEL</div>
+                  <div className="badge-value">MAXIMUM</div>
+                </div>
+                <Sparkles size={30} />
+              </div>
+            </motion.div>
+
+            {/* Floating Code Snippets */}
+            <div className="genius-code-float">
+              {[
+                'AI.automate()',
+                'deploy.success',
+                'optimize()',
+                'scale.infinite',
+                'innovate()',
+                'ML.train()',
+              ].map((code, i) => (
+                <motion.div
+                  key={i}
+                  className="code-snippet"
+                  initial={{
+                    x: Math.random() * window.innerWidth,
+                    y: window.innerHeight + 100,
+                    opacity: 0
+                  }}
+                  animate={{
+                    y: -100,
+                    opacity: [0, 1, 1, 0]
+                  }}
+                  transition={{
+                    duration: 8,
+                    repeat: Infinity,
+                    delay: i * 1.5,
+                    ease: 'linear'
+                  }}
+                >
+                  {code}
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Energy Beams */}
+            <div className="genius-energy-beams">
+              {[...Array(8)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="energy-beam"
+                  initial={{ scaleX: 0, opacity: 0 }}
+                  animate={{
+                    scaleX: [0, 1, 0],
+                    opacity: [0, 0.6, 0]
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    delay: i * 0.3,
+                    ease: 'easeInOut'
+                  }}
+                  style={{
+                    top: `${50 + (i - 4) * 8}%`,
+                    transformOrigin: i % 2 === 0 ? 'left' : 'right',
+                    left: i % 2 === 0 ? '0' : 'auto',
+                    right: i % 2 === 0 ? 'auto' : '0'
+                  }}
+                />
+              ))}
+            </div>
           </>
         )}
       </AnimatePresence>
