@@ -14,7 +14,7 @@ const GeniusMode = () => {
     { label: 'Users Impacted', value: '3000+', icon: Trophy, color: '#00F5FF' },
     { label: 'Automations Built', value: '15+', icon: Bot, color: '#FF006E' },
     { label: 'Tech Stack Mastery', value: '30+', icon: Zap, color: '#00FF88' },
-    { label: 'Published Papers', value: 1, icon: Star, color: '#FFC700' },
+    { label: 'Published Papers', value: 2, icon: Star, color: '#FFC700' },
     { label: 'Projects Deployed', value: '25+', icon: Rocket, color: '#00F5FF' }
   ]
 
