@@ -1,0 +1,455 @@
+/* Genius Mode Toggle Button */
+.genius-mode-toggle {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  z-index: 10000;
+  background: linear-gradient(135deg, #FF006E 0%, #FFC700 100%);
+  border: 4px solid var(--black);
+  padding: 12px 24px;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--white);
+  cursor: pointer;
+  box-shadow: 6px 6px 0px var(--black);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  letter-spacing: 1px;
+}
+
+.genius-mode-toggle:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0px var(--black);
+}
+
+.genius-mode-toggle:active {
+  transform: translate(2px, 2px);
+  box-shadow: 4px 4px 0px var(--black);
+}
+
+.genius-mode-toggle.active {
+  background: linear-gradient(135deg, #00FF88 0%, #00F5FF 100%);
+  animation: pulse-glow 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 6px 6px 0px var(--black), 0 0 20px rgba(0, 255, 136, 0.5);
+  }
+  50% {
+    box-shadow: 6px 6px 0px var(--black), 0 0 40px rgba(0, 245, 255, 0.8);
+  }
+}
+
+/* Matrix Background */
+.genius-matrix-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9990;
+  pointer-events: none;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.matrix-column {
+  position: absolute;
+  top: -100%;
+  width: 20px;
+  height: 100%;
+  color: #00FF88;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  text-shadow: 0 0 5px #00FF88;
+  animation: matrix-fall linear infinite;
+  display: flex;
+  flex-direction: column;
+  opacity: 0.6;
+}
+
+.matrix-column span {
+  display: block;
+  line-height: 20px;
+}
+
+@keyframes matrix-fall {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+/* Particle Explosion */
+.genius-particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9991;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  background: radial-gradient(circle, #FFC700, #FF006E);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255, 199, 0, 0.8);
+}
+
+/* Holographic Stats Container */
+.genius-stats-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9995;
+  pointer-events: none;
+}
+
+.genius-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  padding: 40px;
+}
+
+.genius-stat-card {
+  background: rgba(0, 0, 0, 0.85);
+  border: 4px solid var(--stat-color);
+  padding: 30px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 0 20px var(--stat-color),
+    inset 0 0 20px rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.genius-stat-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  animation: hologram-scan 3s linear infinite;
+}
+
+@keyframes hologram-scan {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
+}
+
+.stat-icon {
+  color: var(--stat-color);
+  margin-bottom: 15px;
+  filter: drop-shadow(0 0 10px var(--stat-color));
+  animation: icon-float 2s ease-in-out infinite;
+}
+
+@keyframes icon-float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.stat-value {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--stat-color);
+  text-shadow:
+    0 0 10px var(--stat-color),
+    0 0 20px var(--stat-color);
+  margin-bottom: 10px;
+  line-height: 1;
+}
+
+.stat-label {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 600;
+}
+
+.hologram-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.hologram-lines span {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: var(--stat-color);
+  opacity: 0.3;
+  animation: scan-line 2s linear infinite;
+}
+
+.hologram-lines span:nth-child(1) { top: 20%; animation-delay: 0s; }
+.hologram-lines span:nth-child(2) { top: 50%; animation-delay: 0.7s; }
+.hologram-lines span:nth-child(3) { top: 80%; animation-delay: 1.4s; }
+
+@keyframes scan-line {
+  0% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}
+
+/* Flying Achievement Badges */
+.genius-achievements {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9992;
+  pointer-events: none;
+}
+
+.achievement-badge {
+  position: absolute;
+  background: linear-gradient(135deg, #FF006E, #FFC700);
+  border: 3px solid var(--black);
+  padding: 12px 20px;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--white);
+  box-shadow: 0 0 20px rgba(255, 199, 0, 0.6);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.achievement-emoji {
+  font-size: 1.5rem;
+}
+
+.achievement-text {
+  letter-spacing: 1px;
+}
+
+/* Glowing Aura */
+.genius-aura {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80vw;
+  height: 80vh;
+  background: radial-gradient(
+    circle,
+    rgba(255, 199, 0, 0.3) 0%,
+    rgba(255, 0, 110, 0.2) 30%,
+    rgba(0, 245, 255, 0.1) 60%,
+    transparent 100%
+  );
+  z-index: 9989;
+  pointer-events: none;
+  filter: blur(40px);
+}
+
+/* AI Brain Animation */
+.genius-brain {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9988;
+  pointer-events: none;
+  color: rgba(0, 245, 255, 0.2);
+  filter: drop-shadow(0 0 30px rgba(0, 245, 255, 0.5));
+}
+
+/* Tablet Optimizations */
+@media (max-width: 1024px) {
+  .genius-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 30px;
+  }
+
+  .genius-stat-card {
+    padding: 25px 15px;
+  }
+
+  .stat-value {
+    font-size: 2.5rem;
+  }
+
+  .achievement-badge {
+    font-size: 0.8rem;
+    padding: 10px 16px;
+  }
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .genius-mode-toggle {
+    top: 70px;
+    right: 15px;
+    padding: 10px 16px;
+    font-size: 0.75rem;
+    gap: 6px;
+  }
+
+  .genius-mode-toggle svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .genius-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 20px;
+    max-width: 90vw;
+  }
+
+  .genius-stat-card {
+    padding: 20px 15px;
+  }
+
+  .stat-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .stat-value {
+    font-size: 2rem;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+  }
+
+  .achievement-badge {
+    font-size: 0.7rem;
+    padding: 8px 12px;
+    gap: 6px;
+  }
+
+  .achievement-emoji {
+    font-size: 1.2rem;
+  }
+
+  .genius-brain svg {
+    width: 60px;
+    height: 60px;
+  }
+
+  .matrix-column {
+    font-size: 12px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .genius-mode-toggle {
+    font-size: 0.65rem;
+    padding: 8px 12px;
+  }
+
+  .genius-stats-grid {
+    padding: 15px;
+    gap: 12px;
+  }
+
+  .genius-stat-card {
+    padding: 15px 10px;
+    border-width: 3px;
+  }
+
+  .stat-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .stat-value {
+    font-size: 1.6rem;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+  }
+
+  .achievement-badge {
+    font-size: 0.6rem;
+    padding: 6px 10px;
+  }
+
+  .achievement-emoji {
+    font-size: 1rem;
+  }
+
+  .genius-brain svg {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+/* Touch Devices - Disable Hover Effects */
+@media (hover: none) and (pointer: coarse) {
+  .genius-mode-toggle:hover {
+    transform: none;
+    box-shadow: 6px 6px 0px var(--black);
+  }
+}
+
+/* Reduce animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .genius-mode-toggle,
+  .genius-stat-card,
+  .stat-icon,
+  .achievement-badge,
+  .genius-aura,
+  .genius-brain {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .matrix-column {
+    animation: none !important;
+    opacity: 0.2;
+  }
+}

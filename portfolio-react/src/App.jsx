@@ -12,6 +12,7 @@ import Publications from './components/Publications'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import BackToTop from './components/BackToTop'
+import GeniusMode from './components/GeniusMode'
 import './App.css'
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
   return (
     <div className="App">
       <Navbar />
+      <GeniusMode />
       <Hero />
       <About />
       <Experience />

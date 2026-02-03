@@ -23,15 +23,29 @@ const Experience = () => {
       tags: ['Python', 'SQL', 'PostgreSQL', 'Apache Spark', 'AI/LLM']
     },
     {
+      title: 'Campus Ambassador',
+      company: 'Perplexity AI',
+      location: 'Remote',
+      date: 'Jan 2025 - Present',
+      current: true,
+      description: [
+        'Lead campus outreach for Perplexity AI (12B valuation startup)',
+        'Organized AI workshops and hackathons with 200+ student participants',
+        'Built educational content about AI search and knowledge discovery for university community'
+      ],
+      tags: ['Community Building', 'AI Education', 'Event Management', 'Content Creation']
+    },
+    {
       title: 'Software Development Intern',
       company: 'Let\'s Be The Change',
       location: 'Bangalore, India',
       date: 'Sep 2023 - May 2024',
       description: [
-        'Developed a Flutter-based community engagement app serving 1,000 users on iOS and Android',
-        'Built a web administration portal for managing app features and monitoring user activity'
+        'Developed a Flutter-based community engagement app serving 1,000+ active users on iOS and Android',
+        'Built a web administration portal using React and Node.js for managing app features and monitoring user activity',
+        'Deployed scalable backend infrastructure on AWS (EC2, RDS, S3) with PostgreSQL database'
       ],
-      tags: ['Flutter', 'Dart', 'PostgreSQL', 'AWS']
+      tags: ['Flutter', 'Dart', 'React', 'Node.js', 'PostgreSQL', 'AWS']
     },
     {
       title: 'Machine Learning Research Intern',
@@ -39,10 +53,71 @@ const Experience = () => {
       location: 'Bangalore, India',
       date: 'Aug 2023 - Sep 2023',
       description: [
-        'Developed ML model for sentiment analysis achieving 90% accuracy',
-        'Engineered Flask web application for real-time predictions'
+        'Developed ML model for sentiment analysis on social media data achieving 90% accuracy',
+        'Engineered Flask web application for real-time predictions with REST API',
+        'Published research paper on sentiment analysis techniques in IEEE conference'
       ],
-      tags: ['Python', 'Flask', 'NLP', 'ML']
+      tags: ['Python', 'Flask', 'NLP', 'ML', 'Research', 'Scikit-learn']
+    },
+    {
+      title: 'Data Science Intern',
+      company: 'Pantechelearning',
+      location: 'Chennai, India',
+      date: 'Jun 2023 - Jul 2023',
+      description: [
+        'Built data visualization dashboards using Python (Matplotlib, Seaborn) for business analytics',
+        'Performed exploratory data analysis on customer behavior datasets (100K+ records)',
+        'Automated data cleaning and preprocessing pipelines using Pandas and NumPy'
+      ],
+      tags: ['Python', 'Pandas', 'NumPy', 'Matplotlib', 'Data Analysis', 'SQL']
+    },
+    {
+      title: 'Software Engineer Intern',
+      company: 'Alltramatic',
+      location: 'Bangalore, India',
+      date: 'Dec 2022 - Feb 2023',
+      description: [
+        'Developed RESTful APIs using Spring Boot and Java for e-commerce platform',
+        'Implemented authentication and authorization using JWT and Spring Security',
+        'Optimized database queries reducing API response time by 40%'
+      ],
+      tags: ['Java', 'Spring Boot', 'MySQL', 'REST API', 'JWT', 'Docker']
+    },
+    {
+      title: 'Core Team Member - Technical Lead',
+      company: 'VCET Tech Club',
+      location: 'Bangalore, India',
+      date: 'Aug 2021 - May 2024',
+      description: [
+        'Led technical team of 15+ members organizing coding competitions and hackathons',
+        'Mentored 100+ students in web development and competitive programming',
+        'Organized annual tech fest with 500+ participants and 20+ technical events'
+      ],
+      tags: ['Leadership', 'Event Management', 'Mentoring', 'Community Building']
+    },
+    {
+      title: 'Open Source Contributor',
+      company: 'Layer5 (CNCF)',
+      location: 'Remote',
+      date: 'Mar 2023 - Aug 2023',
+      description: [
+        'Contributed to Meshery, a cloud-native management plane for service meshes',
+        'Fixed bugs and implemented new features in Go and React codebase',
+        'Collaborated with global developer community through GitHub and Slack'
+      ],
+      tags: ['Go', 'React', 'Kubernetes', 'Docker', 'Open Source', 'CNCF']
+    },
+    {
+      title: 'Campus Ambassador',
+      company: 'SkillVertex',
+      location: 'Remote',
+      date: 'Jan 2023 - Jun 2023',
+      description: [
+        'Promoted online learning platform and organized skill development workshops',
+        'Achieved 150+ student registrations through campus outreach campaigns',
+        'Coordinated webinars on emerging technologies (Cloud, DevOps, AI/ML)'
+      ],
+      tags: ['Marketing', 'Community Outreach', 'Event Coordination', 'Content Creation']
     }
   ]
 
