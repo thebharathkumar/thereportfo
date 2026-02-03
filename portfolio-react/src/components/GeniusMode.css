@@ -114,34 +114,37 @@
   transform: translate(-50%, -50%);
   z-index: 9995;
   pointer-events: none;
-  width: 90vw;
-  max-width: 1200px;
+  width: 100%;
+  max-width: min(85vw, 1100px);
   max-height: 80vh;
   overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0 5px;
+  box-sizing: border-box;
 }
 
 .genius-stats-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 15px;
-  padding: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 12px;
+  padding: 12px 8px;
   width: 100%;
   box-sizing: border-box;
 }
 
 .genius-stat-card {
   background: rgba(0, 0, 0, 0.85);
-  border: 4px solid var(--stat-color);
-  padding: 25px 15px;
+  border: 3px solid var(--stat-color);
+  padding: 20px 12px;
   text-align: center;
   position: relative;
   overflow: hidden;
   box-shadow:
-    0 0 20px var(--stat-color),
-    inset 0 0 20px rgba(255, 255, 255, 0.1);
+    0 0 15px var(--stat-color),
+    inset 0 0 15px rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   min-width: 0;
-  max-width: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -192,27 +195,28 @@
 
 .stat-value {
   font-family: var(--font-heading);
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 900;
   color: var(--stat-color);
   text-shadow:
     0 0 10px var(--stat-color),
     0 0 20px var(--stat-color);
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   line-height: 1;
 }
 
 .stat-label {
   font-family: var(--font-body);
-  font-size: 0.85rem;
+  font-size: 0.7rem;
   color: #fff;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-spacing: 1px;
   font-weight: 600;
   word-wrap: break-word;
   hyphens: auto;
   max-width: 100%;
-  line-height: 1.3;
+  line-height: 1.2;
+  text-align: center;
 }
 
 .hologram-lines {
@@ -321,26 +325,27 @@
 /* Tablet Optimizations */
 @media (max-width: 1024px) {
   .genius-stats-container {
-    width: 90vw;
+    max-width: min(88vw, 900px);
   }
 
   .genius-stats-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-    padding: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    padding: 10px;
   }
 
   .genius-stat-card {
-    padding: 20px 12px;
+    padding: 18px 10px;
+    border-width: 3px;
   }
 
   .stat-value {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
 
   .stat-label {
-    font-size: 0.75rem;
-    letter-spacing: 1px;
+    font-size: 0.65rem;
+    letter-spacing: 0.8px;
   }
 
   .achievement-badge {
@@ -367,42 +372,41 @@
   }
 
   .genius-stats-container {
-    width: 96vw;
+    max-width: 92vw;
     max-height: 70vh;
     top: 55%;
-    overflow-y: auto;
-    overflow-x: hidden;
+    padding: 0 2px;
   }
 
   .genius-stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    padding: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 8px;
+    padding: 8px 4px;
   }
 
   .genius-stat-card {
-    padding: 15px 10px;
-    border-width: 3px;
+    padding: 14px 8px;
+    border-width: 2px;
   }
 
   .stat-icon {
-    margin-bottom: 8px;
-  }
-
-  .stat-icon svg {
-    width: 20px;
-    height: 20px;
-  }
-
-  .stat-value {
-    font-size: 1.5rem;
     margin-bottom: 6px;
   }
 
+  .stat-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .stat-value {
+    font-size: 1.6rem;
+    margin-bottom: 5px;
+  }
+
   .stat-label {
-    font-size: 0.6rem;
+    font-size: 0.55rem;
     letter-spacing: 0.3px;
-    line-height: 1.2;
+    line-height: 1.1;
   }
 
   .achievement-badge {
@@ -458,38 +462,39 @@
   }
 
   .genius-stats-container {
-    width: 94vw;
+    max-width: 94vw;
     max-height: 65vh;
     top: 52%;
   }
 
   .genius-stats-grid {
     grid-template-columns: 1fr;
-    padding: 8px;
-    gap: 8px;
+    padding: 6px;
+    gap: 6px;
   }
 
   .genius-stat-card {
     padding: 12px 10px;
     border-width: 2px;
+    max-width: 100%;
   }
 
   .stat-icon {
-    margin-bottom: 6px;
+    margin-bottom: 5px;
   }
 
   .stat-icon svg {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
   }
 
   .stat-value {
     font-size: 1.5rem;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
   }
 
   .stat-label {
-    font-size: 0.55rem;
+    font-size: 0.52rem;
     letter-spacing: 0.3px;
   }
 
@@ -530,13 +535,13 @@
   }
 
   .genius-stats-container {
-    width: 96vw;
+    max-width: 96vw;
     max-height: 60vh;
   }
 
   .genius-stats-grid {
-    padding: 6px;
-    gap: 6px;
+    padding: 5px;
+    gap: 5px;
   }
 
   .genius-stat-card {
@@ -548,7 +553,7 @@
   }
 
   .stat-label {
-    font-size: 0.5rem;
+    font-size: 0.48rem;
   }
 
   .achievement-badge {
