@@ -29,8 +29,10 @@ const GeniusMode = () => {
 
   useEffect(() => {
     if (isActive) {
-      // Generate particles
-      const newParticles = Array.from({ length: 50 }, (_, i) => ({
+      // Generate particles (fewer on mobile)
+      const isMobile = window.innerWidth <= 768
+      const particleCount = isMobile ? 20 : 50
+      const newParticles = Array.from({ length: particleCount }, (_, i) => ({
         id: i,
         x: Math.random() * 100,
         y: Math.random() * 100,
