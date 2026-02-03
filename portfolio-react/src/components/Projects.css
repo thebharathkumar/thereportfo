@@ -5,7 +5,7 @@
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 40px;
+  gap: 35px;
   margin-top: 60px;
 }
 
@@ -23,25 +23,27 @@
 
 .featured-badge {
   position: absolute;
-  top: -15px;
+  top: -12px;
   right: 20px;
   background: var(--accent-pink);
   color: var(--white);
   border: 3px solid var(--black);
   padding: 6px 16px;
   font-weight: 700;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
   box-shadow: 4px 4px 0px var(--black);
+  z-index: 2;
 }
 
 .project-card h3 {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   margin-bottom: 15px;
+  line-height: 1.3;
 }
 
 .project-card p {
-  margin: 20px 0;
+  margin: 15px 0;
   line-height: 1.6;
 }
 
@@ -58,6 +60,7 @@
   padding: 6px 12px;
   font-size: 0.85rem;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .project-links {
@@ -76,8 +79,86 @@
   padding: 12px 20px;
 }
 
+/* Tablet */
+@media (max-width: 1024px) {
+  .projects-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+  }
+}
+
+/* Mobile */
 @media (max-width: 768px) {
   .projects-grid {
     grid-template-columns: 1fr;
+    gap: 25px;
+    margin-top: 40px;
+  }
+
+  .project-card h3 {
+    font-size: 1.25rem;
+  }
+
+  .project-card p {
+    font-size: 0.95rem;
+  }
+
+  .featured-badge {
+    top: -10px;
+    right: 15px;
+    padding: 5px 12px;
+    font-size: 0.7rem;
+  }
+
+  .highlights {
+    gap: 8px;
+    margin: 15px 0;
+  }
+
+  .highlight {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+  }
+
+  .project-links {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .project-links .btn {
+    width: 100%;
+    font-size: 0.85rem;
+    padding: 12px 16px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .projects-grid {
+    gap: 20px;
+  }
+
+  .project-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+  }
+
+  .project-card p {
+    font-size: 0.9rem;
+    margin: 12px 0;
+  }
+
+  .featured-badge {
+    font-size: 0.65rem;
+    padding: 4px 10px;
+  }
+
+  .highlights {
+    gap: 6px;
+  }
+
+  .highlight {
+    font-size: 0.75rem;
+    padding: 4px 8px;
   }
 }
