@@ -2,6 +2,10 @@
   background: var(--bg-secondary);
 }
 
+.publications .section-title {
+  color: var(--black);
+}
+
 .publications-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -12,8 +16,8 @@
 .publication-card {
   display: block;
   text-align: left;
-  background: var(--accent-pink);
-  color: var(--white);
+  background: var(--accent-pink) !important;
+  color: var(--white) !important;
   text-decoration: none;
   transition: all 0.3s ease;
   cursor: pointer;
@@ -55,6 +59,7 @@
   margin: 20px 0 15px;
   line-height: 1.3;
   font-weight: 800;
+  color: var(--white) !important;
 }
 
 .pub-journal {
@@ -62,6 +67,7 @@
   opacity: 0.9;
   margin-bottom: 15px;
   font-weight: 600;
+  color: var(--white) !important;
 }
 
 .pub-description {
@@ -69,6 +75,7 @@
   line-height: 1.6;
   opacity: 0.9;
   margin-bottom: 20px;
+  color: var(--white) !important;
 }
 
 .pub-link {
@@ -77,9 +84,13 @@
   gap: 10px;
   font-weight: 700;
   font-size: 1rem;
-  color: var(--accent-yellow);
+  color: var(--accent-yellow) !important;
   margin-top: 20px;
   transition: gap 0.3s ease;
+}
+
+.pub-link span {
+  color: var(--accent-yellow) !important;
 }
 
 .publication-card:hover .pub-link {
