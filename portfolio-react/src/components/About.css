@@ -134,14 +134,17 @@
 
   .about-highlight {
     padding: 12px;
+    margin: 12px 0;
   }
 
   .about-stats {
-    gap: 15px;
+    gap: 12px;
+    width: 100%;
   }
 
   .stat-card {
-    padding: 20px 12px;
+    padding: 18px 10px;
+    border-width: 3px;
   }
 
   .stat-number {
@@ -149,6 +152,41 @@
   }
 
   .stat-label {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* Extra Small Mobile */
+@media (max-width: 390px) {
+  .about-text {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .about-intro {
+    font-size: 1.3rem;
+  }
+
+  .about-highlight {
+    padding: 10px;
+    font-size: 0.85rem;
+  }
+
+  .about-stats {
+    gap: 10px;
+  }
+
+  .stat-card {
+    padding: 15px 8px;
+    border-width: 2px;
+  }
+
+  .stat-number {
+    font-size: 1.6rem;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.5px;
   }
 }
