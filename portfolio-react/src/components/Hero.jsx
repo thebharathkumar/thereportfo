@@ -1,165 +1,239 @@
+import { useRef, useMemo } from 'react'
 import { motion } from 'framer-motion'
-import { Canvas } from '@react-three/fiber'
-import { OrbitControls, Sphere, Box, Torus } from '@react-three/drei'
-import { Download, Mail, ArrowRight } from 'lucide-react'
+import { Canvas, useFrame } from '@react-three/fiber'
+import { OrbitControls, Stars } from '@react-three/drei'
+import { Download, Mail, ArrowRight, Github, Linkedin } from 'lucide-react'
+import * as THREE from 'three'
 import './Hero.css'
 
-const AnimatedShape = ({ position, color }) => {
+// ─── Neural Network Particle Field ───────────────────────────────────────────
+const NeuralNetwork = () => {
+  const pointsRef = useRef()
+  const linesRef = useRef()
+
+  const { positions, linePositions } = useMemo(() => {
+    const nodeCount = 28
+    const pos = []
+    const nodes = []
+
+    for (let i = 0; i < nodeCount; i++) {
+      const x = (Math.random() - 0.5) * 10
+      const y = (Math.random() - 0.5) * 6
+      const z = (Math.random() - 0.5) * 5
+      nodes.push([x, y, z])
+      pos.push(x, y, z)
+    }
+
+    const linePos = []
+    for (let i = 0; i < nodeCount; i++) {
+      for (let j = i + 1; j < nodeCount; j++) {
+        const dx = nodes[i][0] - nodes[j][0]
+        const dy = nodes[i][1] - nodes[j][1]
+        const dz = nodes[i][2] - nodes[j][2]
+        const dist = Math.sqrt(dx * dx + dy * dy + dz * dz)
+        if (dist < 3.5) linePos.push(...nodes[i], ...nodes[j])
+      }
+    }
+
+    return { positions: new Float32Array(pos), linePositions: new Float32Array(linePos) }
+  }, [])
+
+  useFrame((state) => {
+    const t = state.clock.elapsedTime
+    if (pointsRef.current) {
+      pointsRef.current.rotation.y = t * 0.05
+      pointsRef.current.rotation.x = Math.sin(t * 0.03) * 0.1
+    }
+    if (linesRef.current) {
+      linesRef.current.rotation.y = t * 0.05
+      linesRef.current.rotation.x = Math.sin(t * 0.03) * 0.1
+    }
+  })
+
   return (
-    <motion.mesh
-      position={position}
-      animate={{
-        y: position[1] + Math.sin(Date.now() * 0.001) * 0.5,
-        rotateX: [0, Math.PI * 2],
-        rotateY: [0, Math.PI * 2],
-      }}
-      transition={{
-        duration: 5,
-        repeat: Infinity,
-        ease: "linear"
-      }}
-    >
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color={color} wireframe />
-    </motion.mesh>
+    <>
+      <points ref={pointsRef}>
+        <bufferGeometry>
+          <bufferAttribute attach="attributes-position" args={[positions, 3]} />
+        </bufferGeometry>
+        <pointsMaterial size={0.1} color="#67e8f9" transparent opacity={0.8} sizeAttenuation />
+      </points>
+      <lineSegments ref={linesRef}>
+        <bufferGeometry>
+          <bufferAttribute attach="attributes-position" args={[linePositions, 3]} />
+        </bufferGeometry>
+        <lineBasicMaterial color="#67e8f9" transparent opacity={0.1} />
+      </lineSegments>
+    </>
   )
 }
 
-const Hero = () => {
-  const text = "BHARATH KUMAR RAJESH"
-
+// ─── Pulsing Orb ─────────────────────────────────────────────────────────────
+const PulsingOrb = ({ position, color, speed = 1 }) => {
+  const meshRef = useRef()
+  useFrame((state) => {
+    if (meshRef.current) {
+      meshRef.current.position.y = position[1] + Math.sin(state.clock.elapsedTime * speed) * 0.4
+      const s = 1 + Math.sin(state.clock.elapsedTime * speed * 1.5) * 0.1
+      meshRef.current.scale.setScalar(s)
+    }
+  })
   return (
-    <section className="hero" id="home">
-      <div className="hero-3d-background">
-        <Canvas camera={{ position: [0, 0, 5] }}>
-          <ambientLight intensity={0.5} />
-          <pointLight position={[10, 10, 10]} />
-          <Box position={[-2, 1, 0]} args={[1, 1, 1]}>
-            <meshStandardMaterial color="#FFC700" wireframe />
-          </Box>
-          <Sphere position={[2, -1, 0]} args={[0.7, 16, 16]}>
-            <meshStandardMaterial color="#FF006E" wireframe />
-          </Sphere>
-          <Torus position={[0, 0, -2]} args={[0.8, 0.3, 16, 100]}>
-            <meshStandardMaterial color="#00F5FF" wireframe />
-          </Torus>
-          <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={2} />
-        </Canvas>
-      </div>
-
-      <div className="hero-container container">
-        <motion.div
-          className="hero-content"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <motion.div className="hero-title-wrapper">
-            {text.split('').map((char, index) => (
-              <motion.span
-                key={index}
-                className="hero-title-char"
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.05 }}
-                whileHover={{ 
-                  scale: 1.2, 
-                  color: '#FF006E',
-                  rotate: Math.random() * 20 - 10 
-                }}
-              >
-                {char === ' ' ? '\u00A0' : char}
-              </motion.span>
-            ))}
-          </motion.div>
-
-          <motion.div
-            className="hero-box"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.5, type: 'spring' }}
-          >
-            <h2 className="hero-tagline">
-              Software Engineer. Published Researcher. AWS Certified.
-            </h2>
-            <p className="hero-subtitle">
-              MS Computer Science @ Pace University | Graduating May 2026 | Based in New York City
-            </p>
-          </motion.div>
-
-          <motion.div
-            className="hero-buttons"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
-          >
-            <motion.a
-              href="#projects"
-              className="btn btn-primary"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              View My Work <ArrowRight size={20} />
-            </motion.a>
-            <motion.a
-              href="#contact"
-              className="btn btn-secondary"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Get In Touch <Mail size={20} />
-            </motion.a>
-            <motion.button
-              className="btn btn-accent"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Download Resume <Download size={20} />
-            </motion.button>
-          </motion.div>
-        </motion.div>
-
-        <div className="floating-shapes">
-          <motion.div
-            className="shape shape-1"
-            animate={{
-              y: [0, -30, 0],
-              rotate: [0, 180, 360],
-            }}
-            transition={{
-              duration: 5,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-          <motion.div
-            className="shape shape-2"
-            animate={{
-              y: [0, 30, 0],
-              x: [0, -20, 0],
-            }}
-            transition={{
-              duration: 6,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-          <motion.div
-            className="shape shape-3"
-            animate={{
-              scale: [1, 1.2, 1],
-              rotate: [0, -180, -360],
-            }}
-            transition={{
-              duration: 7,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-        </div>
-      </div>
-    </section>
+    <mesh ref={meshRef} position={position}>
+      <sphereGeometry args={[0.28, 24, 24]} />
+      <meshStandardMaterial color={color} emissive={color} emissiveIntensity={1.5} transparent opacity={0.8} />
+    </mesh>
   )
 }
+
+// ─── Rotating Ring ────────────────────────────────────────────────────────────
+const RotatingRing = () => {
+  const ref = useRef()
+  useFrame((state) => {
+    if (ref.current) {
+      ref.current.rotation.x = state.clock.elapsedTime * 0.3
+      ref.current.rotation.z = state.clock.elapsedTime * 0.2
+    }
+  })
+  return (
+    <mesh ref={ref} position={[0, 0, -2]}>
+      <torusGeometry args={[2.5, 0.014, 8, 120]} />
+      <meshStandardMaterial color="#c4b5fd" emissive="#c4b5fd" emissiveIntensity={2} transparent opacity={0.55} />
+    </mesh>
+  )
+}
+
+// ─── Floating Ring ────────────────────────────────────────────────────────────
+const FloatingRing = () => {
+  const ref = useRef()
+  useFrame((state) => {
+    if (ref.current) {
+      ref.current.rotation.x = Math.PI / 3 + state.clock.elapsedTime * 0.15
+      ref.current.rotation.y = state.clock.elapsedTime * 0.1
+      ref.current.position.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.3
+    }
+  })
+  return (
+    <mesh ref={ref} position={[3, 0.5, 0]}>
+      <torusGeometry args={[1, 0.011, 8, 80]} />
+      <meshStandardMaterial color="#f9a8d4" emissive="#f9a8d4" emissiveIntensity={2} transparent opacity={0.5} />
+    </mesh>
+  )
+}
+
+// ─── Hero Main ────────────────────────────────────────────────────────────────
+const Hero = () => (
+  <section className="hero" id="home">
+    <div className="hero-3d-background">
+      <Canvas camera={{ position: [0, 0, 7], fov: 60 }}>
+        <color attach="background" args={['#0b0f1e']} />
+        <ambientLight intensity={0.4} />
+        <pointLight position={[5, 5, 5]} intensity={1.2} color="#67e8f9" />
+        <pointLight position={[-5, -5, 3]} intensity={0.8} color="#c4b5fd" />
+        <pointLight position={[0, 8, -4]} intensity={0.6} color="#f9a8d4" />
+
+        <Stars radius={60} depth={40} count={2000} factor={3} saturation={0} fade speed={0.4} />
+        <NeuralNetwork />
+        <RotatingRing />
+        <FloatingRing />
+        <PulsingOrb position={[-3.5, 1.5, 0]} color="#67e8f9" speed={0.8} />
+        <PulsingOrb position={[4, -1.5, -1]} color="#c4b5fd" speed={1.2} />
+        <PulsingOrb position={[-1, -2, 1]} color="#f9a8d4" speed={0.6} />
+
+        <OrbitControls
+          enableZoom={false} enablePan={false}
+          autoRotate autoRotateSpeed={0.4}
+          maxPolarAngle={Math.PI / 1.8}
+          minPolarAngle={Math.PI / 3}
+        />
+      </Canvas>
+    </div>
+
+    <div className="hero-container container">
+      {/* Status Badge */}
+      <motion.div
+        className="hero-badge"
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.2, type: 'spring' }}
+      >
+        <span className="badge-dot" />
+        Open to Opportunities • Summer 2026
+      </motion.div>
+
+      {/* Name — single h1, white-space:nowrap, fluid font-size */}
+      <motion.h1
+        className="hero-name"
+        initial={{ opacity: 0, y: 36 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.45, type: 'spring', stiffness: 90 }}
+      >
+        BHARATH KUMAR RAJESH
+      </motion.h1>
+
+      {/* Tagline Box */}
+      <motion.div
+        className="hero-tagline-box"
+        initial={{ opacity: 0, y: 18 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.85 }}
+      >
+        <span className="typewriter-text">
+          AI Engineer · Published Researcher · AWS Certified
+        </span>
+      </motion.div>
+
+      {/* Subtitle */}
+      <motion.p
+        className="hero-subtitle"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.1 }}
+      >
+        MS Computer Science @ Pace University&nbsp;&nbsp;|&nbsp;&nbsp;New York City
+      </motion.p>
+
+      {/* Buttons */}
+      <motion.div
+        className="hero-buttons"
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.3 }}
+      >
+        <motion.a href="#projects" className="btn btn-primary" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+          View My Work <ArrowRight size={15} />
+        </motion.a>
+        <motion.a href="#contact" className="btn btn-secondary" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+          Get In Touch <Mail size={15} />
+        </motion.a>
+        <motion.button className="btn btn-accent" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+          Download Resume <Download size={15} />
+        </motion.button>
+      </motion.div>
+
+      {/* Social Links */}
+      <motion.div
+        className="hero-socials"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.6 }}
+      >
+        <motion.a href="https://github.com/thebharathkumar" target="_blank" rel="noopener noreferrer"
+          className="social-link" whileHover={{ scale: 1.2 }}>
+          <Github size={22} />
+        </motion.a>
+        <motion.a href="https://linkedin.com/in/thebharathkumar" target="_blank" rel="noopener noreferrer"
+          className="social-link" whileHover={{ scale: 1.2 }}>
+          <Linkedin size={22} />
+        </motion.a>
+      </motion.div>
+
+      {/* Scroll Indicator */}
+      <motion.div className="scroll-indicator" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2 }}>
+        <motion.div className="scroll-dot" animate={{ y: [0, 9, 0] }} transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }} />
+      </motion.div>
+    </div>
+  </section>
+)
 
 export default Hero

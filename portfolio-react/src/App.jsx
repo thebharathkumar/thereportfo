@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { ThemeProvider } from './context/ThemeContext'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -12,37 +13,38 @@ import Publications from './components/Publications'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import BackToTop from './components/BackToTop'
+import Chatbot from './components/Chatbot'
 import './App.css'
 
 function App() {
   const [showBackToTop, setShowBackToTop] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => {
-      setShowBackToTop(window.scrollY > 500)
-    }
-
+    const handleScroll = () => setShowBackToTop(window.scrollY > 500)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   return (
-    <div className="App">
-      <Navbar />
-      <Hero />
-      <About />
-      <Experience />
-      <Projects />
-      <Skills />
-      <Education />
-      <Certifications />
-      <Publications />
-      <Contact />
-      <Footer />
-      <AnimatePresence>
-        {showBackToTop && <BackToTop />}
-      </AnimatePresence>
-    </div>
+    <ThemeProvider>
+      <div className="App">
+        <Navbar />
+        <Hero />
+        <About />
+        <Experience />
+        <Projects />
+        <Skills />
+        <Education />
+        <Certifications />
+        <Publications />
+        <Contact />
+        <Footer />
+        <AnimatePresence>
+          {showBackToTop && <BackToTop />}
+        </AnimatePresence>
+        <Chatbot />
+      </div>
+    </ThemeProvider>
   )
 }
 

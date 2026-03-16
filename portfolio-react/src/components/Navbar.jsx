@@ -1,73 +1,64 @@
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Menu, X, Sun, Moon } from 'lucide-react'
+import { useTheme } from '../context/ThemeContext'
 import './Navbar.css'
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const { theme, toggleTheme } = useTheme()
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    const onScroll = () => setScrolled(window.scrollY > 40)
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const menuItems = [
-    { name: 'About', href: '#about' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Education', href: '#education' },
-    { name: 'Contact', href: '#contact' }
-  ]
+  const links = ['About', 'Experience', 'Projects', 'Skills', 'Education', 'Contact']
+
+  const handleNavClick = () => setMenuOpen(false)
 
   return (
-    <motion.nav
-      className={`navbar ${scrolled ? 'scrolled' : ''}`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ type: 'spring', stiffness: 100 }}
-    >
+    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="nav-container">
-        <motion.div
-          className="nav-logo"
-          whileHover={{ scale: 1.1, rotate: -5 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <span className="logo-text">BK</span>
-        </motion.div>
+        <a href="#home" className="nav-logo" aria-label="Home">
+          <span className="logo-inner">BK</span>
+        </a>
 
-        <div className={`nav-menu ${isOpen ? 'active' : ''}`}>
-          {menuItems.map((item, index) => (
-            <motion.a
-              key={item.name}
-              href={item.href}
+        <div className={`nav-menu ${menuOpen ? 'active' : ''}`}>
+          {links.map(link => (
+            <a
+              key={link}
+              href={`#${link.toLowerCase()}`}
               className="nav-link"
-              onClick={() => setIsOpen(false)}
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ scale: 1.1, y: -2 }}
+              onClick={handleNavClick}
             >
-              {item.name}
-            </motion.a>
+              {link}
+            </a>
           ))}
         </div>
 
-        <motion.button
-          className="nav-toggle"
-          onClick={() => setIsOpen(!isOpen)}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
-        </motion.button>
+        <div className="nav-actions">
+          <button
+            className="theme-toggle"
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+            title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+          >
+            {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
+          </button>
+
+          <button
+            className="nav-toggle"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+          >
+            {menuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
       </div>
-    </motion.nav>
+    </nav>
   )
 }
 

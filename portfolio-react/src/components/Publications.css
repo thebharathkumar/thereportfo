@@ -1,27 +1,94 @@
+/* ─── Publications Section ─── */
 .publications {
-  background: var(--bg-secondary);
+  position: relative;
+}
+
+.publications-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 20px;
+  position: relative;
+  z-index: 1;
 }
 
 .publication-card {
-  max-width: 800px;
-  margin: 60px auto 0;
-  text-align: center;
-  background: var(--accent-pink);
-  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-left: 2px solid var(--pub-color, var(--neon-purple));
+  border-top: 1px solid var(--glass-border);
+  border-right: 1px solid var(--glass-border);
+  border-bottom: 1px solid var(--glass-border);
+  border-radius: 0 12px 12px 0;
 }
 
-.pub-badge {
-  background: var(--accent-yellow);
-  color: var(--black);
-  border: 3px solid var(--black);
-  padding: 8px 16px;
-  font-weight: 700;
+.pub-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.pub-peer-label {
+  font-family: var(--font-mono);
+  font-size: 0.67rem;
+  font-weight: 600;
+  color: var(--text-muted);
   text-transform: uppercase;
-  display: inline-block;
-  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+.pub-venue {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.pub-conference {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
 }
 
 .publication-card h3 {
-  font-size: 2rem;
-  margin: 20px 0;
+  font-size: 1rem;
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.pub-role {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--neon-green);
+  border: 1px solid rgba(52, 211, 153, 0.25);
+  background: rgba(52, 211, 153, 0.06);
+  padding: 2px 10px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  width: fit-content;
+}
+
+.pub-desc {
+  color: var(--text-secondary);
+  font-size: 0.86rem;
+  line-height: 1.65;
+  flex: 1;
+}
+
+.pub-link {
+  width: fit-content;
+  font-size: 0.78rem;
+  padding: 8px 16px;
+}
+
+@media (max-width: 768px) {
+  .publications-grid {
+    grid-template-columns: 1fr;
+  }
 }

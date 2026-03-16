@@ -1,144 +1,210 @@
+/* ─── Hero Section ─── */
 .hero {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: center;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  background: #0b0f1e;
+}
+
+[data-theme="light"] .hero {
+  background: #e8f4fd;
 }
 
 .hero-3d-background {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   z-index: 0;
-  opacity: 0.3;
+  opacity: 0.65;
+}
+
+[data-theme="light"] .hero-3d-background {
+  opacity: 0.35;
+}
+
+.hero-3d-background canvas {
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .hero-container {
   position: relative;
-  z-index: 1;
-  text-align: center;
-}
-
-.hero-title-wrapper {
+  z-index: 10;
+  padding-top: 96px;
+  padding-bottom: 56px;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 4px;
-  margin-bottom: 40px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
 }
 
-.hero-title-char {
-  font-family: var(--font-heading);
-  font-size: clamp(2.5rem, 6vw, 5rem);
-  font-weight: 700;
-  color: var(--black);
-  display: inline-block;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.hero-box {
-  background: var(--accent-yellow);
-  border: var(--border-thick);
-  padding: 40px;
-  margin: 40px auto;
-  max-width: 900px;
-  box-shadow: var(--shadow-brutal-xl);
-  transform: rotate(-1deg);
-}
-
-.hero-tagline {
-  font-family: var(--font-heading);
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
-  font-weight: 700;
-  margin-bottom: 20px;
+/* ─── Status Badge ─── */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 6px 16px;
+  background: rgba(110, 231, 183, 0.07);
+  border: 1px solid rgba(110, 231, 183, 0.22);
+  border-radius: 100px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--neon-green);
+  letter-spacing: 0.8px;
   text-transform: uppercase;
 }
 
-.hero-subtitle {
-  font-size: clamp(1rem, 2vw, 1.3rem);
-  font-weight: 600;
+[data-theme="light"] .hero-badge {
+  background: rgba(5, 150, 105, 0.06);
+  border-color: rgba(5, 150, 105, 0.2);
 }
 
+.badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--neon-green);
+  box-shadow: 0 0 6px var(--neon-green);
+  animation: pulse-green 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+/* ─── Name ─── */
+.hero-name {
+  font-family: 'Syne', 'Inter', sans-serif;
+  font-weight: 800;
+  /* Syne Bold uppercase is very wide — 2.6vw keeps BHARATH KUMAR RAJESH on one line */
+  font-size: clamp(1.2rem, 2.6vw, 2.8rem);
+  letter-spacing: 2px;
+  line-height: 1.05;
+  white-space: nowrap;
+  color: var(--text-primary);
+  cursor: default;
+}
+
+[data-theme="light"] .hero-name {
+  color: #0f172a;
+}
+
+/* ─── Tagline Box ─── */
+.hero-tagline-box {
+  padding: 11px 18px;
+  background: rgba(103, 232, 249, 0.05);
+  border: 1px solid rgba(103, 232, 249, 0.15);
+  border-left: 2px solid var(--neon-cyan);
+  border-radius: 0 8px 8px 0;
+}
+
+[data-theme="light"] .hero-tagline-box {
+  background: rgba(14, 165, 233, 0.05);
+  border-color: rgba(14, 165, 233, 0.2);
+  border-left-color: var(--neon-cyan);
+}
+
+.typewriter-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(0.76rem, 1.6vw, 0.92rem);
+  color: var(--neon-cyan);
+  letter-spacing: 0.5px;
+}
+
+/* ─── Subtitle ─── */
+.hero-subtitle {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.5px;
+}
+
+/* ─── Buttons ─── */
 .hero-buttons {
   display: flex;
-  gap: 20px;
-  justify-content: center;
   flex-wrap: wrap;
-  margin-top: 40px;
-}
-
-.hero-buttons .btn {
-  display: flex;
-  align-items: center;
   gap: 10px;
 }
 
-.floating-shapes {
+/* ─── Socials ─── */
+.hero-socials {
+  display: flex;
+  gap: 16px;
+}
+
+.social-link {
+  color: var(--text-muted);
+  transition: color 0.22s ease;
+  display: flex;
+  align-items: center;
+}
+
+.social-link:hover {
+  color: var(--neon-cyan);
+}
+
+/* ─── Scroll Indicator ─── */
+.scroll-indicator {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 0;
-  pointer-events: none;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 32px;
+  border: 1px solid rgba(103, 232, 249, 0.2);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  padding-top: 6px;
 }
 
-.shape {
-  position: absolute;
-  border: var(--border);
-}
-
-.shape-1 {
-  width: 100px;
-  height: 100px;
-  background: var(--accent-pink);
-  top: 10%;
-  left: 10%;
-  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-}
-
-.shape-2 {
-  width: 80px;
-  height: 80px;
-  background: var(--accent-blue);
-  border-radius: 50%;
-  top: 70%;
-  right: 15%;
-}
-
-.shape-3 {
-  width: 120px;
-  height: 120px;
-  background: var(--accent-green);
-  bottom: 15%;
-  left: 15%;
-  transform: rotate(45deg);
+.scroll-dot {
+  width: 3px;
+  height: 6px;
+  border-radius: 2px;
+  background: var(--neon-cyan);
+  opacity: 0.6;
 }
 
 @media (max-width: 768px) {
-  .hero-box {
-    padding: 30px 20px;
-    margin: 30px 20px;
-    transform: rotate(0deg);
+  .hero-container {
+    align-items: center;
+    text-align: center;
+    padding-top: 88px;
+  }
+
+  .hero-name {
+    /* At 390px, 4.5vw = ~17.5px. 20 chars * ~10px ≈ 200px — fits on 390px wide */
+    font-size: clamp(1.0rem, 4.5vw, 2.2rem);
+    letter-spacing: 0.5px;
+  }
+
+  .hero-tagline-box {
+    border-left: none;
+    border-top: 2px solid var(--neon-cyan);
+    border-radius: 0 0 8px 8px;
+    text-align: center;
   }
 
   .hero-buttons {
-    flex-direction: column;
-    padding: 0 20px;
-  }
-
-  .hero-buttons .btn {
-    width: 100%;
     justify-content: center;
   }
 
-  .floating-shapes {
+  .hero-socials {
+    justify-content: center;
+  }
+
+  .scroll-indicator {
     display: none;
+  }
+}
+
+@media (max-width: 400px) {
+  .hero-name {
+    font-size: clamp(0.9rem, 4.8vw, 1.4rem);
+    letter-spacing: 0.3px;
+  }
+
+  .hero-buttons .btn {
+    font-size: 0.72rem;
+    padding: 9px 14px;
   }
 }
