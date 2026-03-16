@@ -1,8 +1,8 @@
-import { useRef, useMemo, useContext } from 'react'
+import { useRef, useMemo, useContext, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { OrbitControls, Stars } from '@react-three/drei'
-import { Download, Mail, ArrowRight, Github, Linkedin } from 'lucide-react'
+import { Download, Mail, ArrowRight, Github, Linkedin, X } from 'lucide-react'
 import * as THREE from 'three'
 import { useTheme } from '../context/ThemeContext'
 import './Hero.css'
@@ -154,6 +154,7 @@ const FloatingRing = ({ color }) => {
 const Hero = () => {
   const { theme } = useTheme()
   const isLight = theme === 'light'
+  const [showResumeModal, setShowResumeModal] = useState(false)
 
   const bgColor = isLight ? '#E6D8C3' : '#0b0f1e'
   const cCyan = isLight ? '#3E4A3F' : '#67e8f9'
@@ -246,10 +247,54 @@ const Hero = () => {
           <motion.a href="#contact" className="btn btn-secondary" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
             Get In Touch <Mail size={15} />
           </motion.a>
-          <motion.a href="/resume.pdf" download="Bharath_Kumar_Rajesh_Resume.pdf" className="btn btn-accent" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+          <motion.button onClick={() => setShowResumeModal(true)} className="btn btn-accent" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
             Download Resume <Download size={15} />
-          </motion.a>
+          </motion.button>
         </motion.div>
+
+        {/* Resume Selection Modal */}
+        {showResumeModal && (
+          <div className="resume-modal-overlay" onClick={() => setShowResumeModal(false)}>
+            <motion.div
+              className="resume-modal-content"
+              onClick={e => e.stopPropagation()}
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+            >
+              <button className="close-modal" onClick={() => setShowResumeModal(false)}>
+                <X size={20} />
+              </button>
+
+              <h3 className="modal-title">Select a Profile</h3>
+              <p className="modal-desc">Which role are you hiring for?</p>
+
+              <div className="resume-options">
+                <a href="/resumes/ml-engineer-resume.pdf" download="Bharath_Kumar_Rajesh_ML_Engineer_Resume.pdf" className="resume-option-card">
+                  <div className="option-icon">🧠</div>
+                  <div className="option-text">
+                    <strong>AI / ML Engineer</strong>
+                    <span>Focus on Machine Learning, NLP, and Agentic Systems</span>
+                  </div>
+                </a>
+                <a href="/resumes/data-engineer-resume.pdf" download="Bharath_Kumar_Rajesh_Data_Engineer_Resume.pdf" className="resume-option-card">
+                  <div className="option-icon">📊</div>
+                  <div className="option-text">
+                    <strong>Data Engineer</strong>
+                    <span>Focus on Data Pipelines, Cloud Infrastructure, and Scaled Processing</span>
+                  </div>
+                </a>
+                <a href="/resumes/software-engineer-resume.pdf" download="Bharath_Kumar_Rajesh_Software_Engineer_Resume.pdf" className="resume-option-card">
+                  <div className="option-icon">💻</div>
+                  <div className="option-text">
+                    <strong>Software Engineer</strong>
+                    <span>Focus on Full-Stack Development, Backend Systems, and APIs</span>
+                  </div>
+                </a>
+              </div>
+            </motion.div>
+          </div>
+        )}
 
         {/* Social Links */}
         <motion.div
