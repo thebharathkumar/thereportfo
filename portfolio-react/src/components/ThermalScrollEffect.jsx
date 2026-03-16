@@ -8,15 +8,12 @@ const ThermalScrollEffect = () => {
     const [scrollY, setScrollY] = useState(0)
 
     useEffect(() => {
-        if (!isLight) return
         const handleScroll = () => {
             setScrollY(window.scrollY)
         }
         window.addEventListener('scroll', handleScroll, { passive: true })
         return () => window.removeEventListener('scroll', handleScroll)
-    }, [isLight])
-
-    if (!isLight) return null
+    }, [])
 
     // Calculate dynamic positions based on scroll
     // We'll map the scroll position to some gentle movement of background blobs

@@ -10,36 +10,46 @@
   box-sizing: border-box;
 }
 
-/* ─── DARK THEME (default) ─── */
+/* ─── DARK THEME (Midnight Plum & Rise) ─── */
 :root,
 [data-theme="dark"] {
   --font-heading: 'Syne', sans-serif;
-  --bg-primary: #0b0f1e;
-  --bg-secondary: #10162a;
-  --bg-card: rgba(14, 20, 40, 0.8);
-  --bg-card-hover: rgba(18, 26, 52, 0.95);
+  --bg-primary: #2C1F2E;
+  /* Midnight Plum */
+  --bg-secondary: #211623;
+  /* Darker plum variation */
+  --bg-card: rgba(33, 22, 35, 0.8);
+  --bg-card-hover: rgba(44, 31, 46, 0.95);
 
-  --neon-cyan: #67e8f9;
-  --neon-purple: #c4b5fd;
-  --neon-pink: #f9a8d4;
-  --neon-green: #6ee7b7;
-  --neon-blue: #93c5fd;
-  --neon-orange: #fdba74;
+  --neon-cyan: #C7A6A1;
+  /* Rise (primary accent) */
+  --neon-purple: #D5B4B6;
+  /* Lighter rose */
+  --neon-pink: #E8D3D8;
+  --neon-green: #BCA3A4;
+  /* Muted rise */
+  --neon-blue: #C7A6A1;
+  /* Mapped to rise */
+  --neon-orange: #C7A6A1;
+  /* Mapped to rise */
 
-  --text-primary: #f1f5f9;
-  --text-secondary: #94a3b8;
-  --text-muted: #475569;
+  --text-primary: #FDEEEE;
+  /* Soft rosy white */
+  --text-secondary: #D5B4B6;
+  --text-muted: #8E7A8F;
+  /* Muted plum */
 
-  --glass-border: rgba(148, 163, 184, 0.1);
-  --glass-border-hover: rgba(103, 232, 249, 0.3);
-  --glow-card: 0 4px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(148, 163, 184, 0.06);
+  --glass-border: rgba(199, 166, 161, 0.1);
+  /* Rise tinted border */
+  --glass-border-hover: rgba(199, 166, 161, 0.3);
+  --glow-card: 0 4px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(199, 166, 161, 0.08);
 
-  --grad-text: linear-gradient(135deg, #67e8f9 0%, #c4b5fd 55%, #f9a8d4 100%);
+  --grad-text: linear-gradient(135deg, #E8D3D8 0%, #C7A6A1 55%, #D5B4B6 100%);
 
-  --toggle-bg: rgba(103, 232, 249, 0.08);
-  --toggle-border: rgba(103, 232, 249, 0.2);
-  --toggle-color: #67e8f9;
-  --section-bg-alt: rgba(10, 14, 28, 0.5);
+  --toggle-bg: rgba(199, 166, 161, 0.08);
+  --toggle-border: rgba(199, 166, 161, 0.2);
+  --toggle-color: #C7A6A1;
+  --section-bg-alt: rgba(33, 22, 35, 0.5);
 }
 
 /* ─── Light Theme Overrides (Luxury Olive & Beige) ─── */
@@ -97,7 +107,8 @@ body {
 }
 
 ::selection {
-  background: rgba(103, 232, 249, 0.2);
+  background: rgba(199, 166, 161, 0.2);
+  /* Rise selection */
   color: var(--neon-cyan);
 }
 
@@ -110,12 +121,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(103, 232, 249, 0.3);
+  background: rgba(199, 166, 161, 0.3);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(103, 232, 249, 0.5);
+  background: rgba(199, 166, 161, 0.5);
 }
 
 /* ─── App wrapper ─── */
@@ -136,9 +147,9 @@ body {
   bottom: 0;
   z-index: -2;
   background:
-    radial-gradient(ellipse 60% 40% at 15% 15%, rgba(103, 232, 249, 0.04) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 40% at 85% 20%, rgba(196, 181, 253, 0.04) 0%, transparent 70%),
-    radial-gradient(ellipse 40% 30% at 50% 88%, rgba(249, 168, 212, 0.03) 0%, transparent 70%);
+    radial-gradient(ellipse 60% 40% at 15% 15%, rgba(199, 166, 161, 0.05) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 40% at 85% 20%, rgba(213, 180, 182, 0.04) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 30% at 50% 88%, rgba(232, 211, 216, 0.03) 0%, transparent 70%);
 }
 
 [data-theme="light"] .App::before {

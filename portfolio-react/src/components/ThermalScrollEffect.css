@@ -12,6 +12,12 @@
     opacity: 0.6;
 }
 
+/* Dark mode needs an additive blend mode to create a luminous heat glow */
+[data-theme="dark"] .thermal-scroll-container {
+    mix-blend-mode: color-dodge;
+    opacity: 0.35;
+}
+
 .thermal-blob {
     position: absolute;
     border-radius: 50%;
