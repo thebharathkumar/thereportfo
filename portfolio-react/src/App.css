@@ -208,6 +208,20 @@ section {
   border-radius: 2px;
 }
 
+[data-theme="light"] .section-title {
+  background: none;
+  -webkit-background-clip: initial;
+  -webkit-text-fill-color: initial;
+  background-clip: initial;
+  color: var(--text-primary);
+  text-transform: capitalize;
+  letter-spacing: 1px;
+}
+
+[data-theme="light"] .section-title::after {
+  background: var(--text-primary);
+}
+
 h1,
 h2,
 h3,

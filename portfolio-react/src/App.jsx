@@ -12,6 +12,7 @@ import Certifications from './components/Certifications'
 import Publications from './components/Publications'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
+import ThermalScrollEffect from './components/ThermalScrollEffect'
 import BackToTop from './components/BackToTop'
 import Chatbot from './components/Chatbot'
 import './App.css'
@@ -28,6 +29,7 @@ function App() {
   return (
     <ThemeProvider>
       <div className="App">
+        <ThermalScrollEffect />
         <Navbar />
         <Hero />
         <About />
