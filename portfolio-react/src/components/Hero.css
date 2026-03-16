@@ -9,7 +9,7 @@
 }
 
 [data-theme="light"] .hero {
-  background: #e8f4fd;
+  background: var(--bg-primary);
 }
 
 .hero-3d-background {
@@ -20,7 +20,7 @@
 }
 
 [data-theme="light"] .hero-3d-background {
-  opacity: 0.35;
+  opacity: 0.85;
 }
 
 .hero-3d-background canvas {
@@ -84,7 +84,7 @@
 }
 
 [data-theme="light"] .hero-name {
-  color: #0f172a;
+  color: var(--text-primary);
 }
 
 /* ─── Tagline Box ─── */

@@ -63,6 +63,10 @@
   --neon-blue: #4A584B;
   --neon-purple: #3E4A3F;
   --neon-pink: #5B6B5D;
+  --neon-green: #4A584B;
+  /* Prevent bright green clash */
+  --neon-orange: #5B6B5D;
+  /* Prevent bright orange clash */
 
   /* Borders and Glass */
   --glass-border: rgba(62, 74, 63, 0.15);
@@ -133,6 +137,20 @@ body {
     radial-gradient(ellipse 60% 40% at 15% 15%, rgba(103, 232, 249, 0.04) 0%, transparent 70%),
     radial-gradient(ellipse 50% 40% at 85% 20%, rgba(196, 181, 253, 0.04) 0%, transparent 70%),
     radial-gradient(ellipse 40% 30% at 50% 88%, rgba(249, 168, 212, 0.03) 0%, transparent 70%);
+}
+
+[data-theme="light"] .App::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 15% 50%, rgba(62, 74, 63, 0.04), transparent 30%),
+    radial-gradient(circle at 85% 30%, rgba(74, 88, 75, 0.04), transparent 30%);
+  z-index: 0;
 }
 
 [data-theme="dark"] .App::after {
@@ -254,11 +272,11 @@ h6 {
 }
 
 [data-theme="light"] .btn-primary {
-  border-color: rgba(14, 165, 233, 0.3);
+  border-color: rgba(62, 74, 63, 0.3);
 }
 
 [data-theme="light"] .btn-secondary {
-  border-color: rgba(124, 58, 237, 0.3);
+  border-color: rgba(62, 74, 63, 0.3);
 }
 
 /* ─── Card ─── */
@@ -298,9 +316,21 @@ h6 {
 }
 
 [data-theme="light"] .tag {
-  background: rgba(14, 165, 233, 0.06);
-  border-color: rgba(14, 165, 233, 0.18);
+  background: rgba(62, 74, 63, 0.06);
+  border-color: rgba(62, 74, 63, 0.18);
   color: var(--neon-cyan);
+}
+
+.glow-circle {
+  background: rgba(62, 74, 63, 0.06);
+  border-color: rgba(62, 74, 63, 0.3);
+  color: var(--neon-olive);
+}
+
+[data-theme="light"] .glow-circle {
+  background: rgba(62, 74, 63, 0.06);
+  border-color: rgba(62, 74, 63, 0.3);
+  color: var(--neon-olive);
 }
 
 /* ─── Background helpers ─── */
@@ -320,8 +350,8 @@ h6 {
 
 [data-theme="light"] .grid-background {
   background-image:
-    linear-gradient(rgba(14, 165, 233, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(14, 165, 233, 0.05) 1px, transparent 1px);
+    linear-gradient(rgba(62, 74, 63, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(62, 74, 63, 0.05) 1px, transparent 1px);
 }
 
 .dot-background {
@@ -339,7 +369,7 @@ h6 {
 }
 
 [data-theme="light"] .dot-background {
-  background-image: radial-gradient(rgba(14, 165, 233, 0.08) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(62, 74, 63, 0.08) 1px, transparent 1px);
 }
 
 /* ─── Animations ─── */

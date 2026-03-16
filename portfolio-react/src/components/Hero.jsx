@@ -1,13 +1,14 @@
-import { useRef, useMemo } from 'react'
+import { useRef, useMemo, useContext } from 'react'
 import { motion } from 'framer-motion'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls, Stars } from '@react-three/drei'
 import { Download, Mail, ArrowRight, Github, Linkedin } from 'lucide-react'
 import * as THREE from 'three'
+import { useTheme } from '../context/ThemeContext'
 import './Hero.css'
 
 // ─── Neural Network Particle Field ───────────────────────────────────────────
-const NeuralNetwork = () => {
+const NeuralNetwork = ({ color }) => {
   const pointsRef = useRef()
   const linesRef = useRef()
 
@@ -56,13 +57,13 @@ const NeuralNetwork = () => {
         <bufferGeometry>
           <bufferAttribute attach="attributes-position" args={[positions, 3]} />
         </bufferGeometry>
-        <pointsMaterial size={0.1} color="#67e8f9" transparent opacity={0.8} sizeAttenuation />
+        <pointsMaterial size={0.1} color={color} transparent opacity={0.8} sizeAttenuation />
       </points>
       <lineSegments ref={linesRef}>
         <bufferGeometry>
           <bufferAttribute attach="attributes-position" args={[linePositions, 3]} />
         </bufferGeometry>
-        <lineBasicMaterial color="#67e8f9" transparent opacity={0.1} />
+        <lineBasicMaterial color={color} transparent opacity={0.1} />
       </lineSegments>
     </>
   )
@@ -87,7 +88,7 @@ const PulsingOrb = ({ position, color, speed = 1 }) => {
 }
 
 // ─── Rotating Ring ────────────────────────────────────────────────────────────
-const RotatingRing = () => {
+const RotatingRing = ({ color }) => {
   const ref = useRef()
   useFrame((state) => {
     if (ref.current) {
@@ -98,13 +99,13 @@ const RotatingRing = () => {
   return (
     <mesh ref={ref} position={[0, 0, -2]}>
       <torusGeometry args={[2.5, 0.014, 8, 120]} />
-      <meshStandardMaterial color="#c4b5fd" emissive="#c4b5fd" emissiveIntensity={2} transparent opacity={0.55} />
+      <meshStandardMaterial color={color} emissive={color} emissiveIntensity={2} transparent opacity={0.55} />
     </mesh>
   )
 }
 
 // ─── Floating Ring ────────────────────────────────────────────────────────────
-const FloatingRing = () => {
+const FloatingRing = ({ color }) => {
   const ref = useRef()
   useFrame((state) => {
     if (ref.current) {
@@ -116,124 +117,133 @@ const FloatingRing = () => {
   return (
     <mesh ref={ref} position={[3, 0.5, 0]}>
       <torusGeometry args={[1, 0.011, 8, 80]} />
-      <meshStandardMaterial color="#f9a8d4" emissive="#f9a8d4" emissiveIntensity={2} transparent opacity={0.5} />
+      <meshStandardMaterial color={color} emissive={color} emissiveIntensity={2} transparent opacity={0.5} />
     </mesh>
   )
 }
 
 // ─── Hero Main ────────────────────────────────────────────────────────────────
-const Hero = () => (
-  <section className="hero" id="home">
-    <div className="hero-3d-background">
-      <Canvas camera={{ position: [0, 0, 7], fov: 60 }}>
-        <color attach="background" args={['#0b0f1e']} />
-        <ambientLight intensity={0.4} />
-        <pointLight position={[5, 5, 5]} intensity={1.2} color="#67e8f9" />
-        <pointLight position={[-5, -5, 3]} intensity={0.8} color="#c4b5fd" />
-        <pointLight position={[0, 8, -4]} intensity={0.6} color="#f9a8d4" />
+const Hero = () => {
+  const { theme } = useTheme()
+  const isLight = theme === 'light'
 
-        <Stars radius={60} depth={40} count={2000} factor={3} saturation={0} fade speed={0.4} />
-        <NeuralNetwork />
-        <RotatingRing />
-        <FloatingRing />
-        <PulsingOrb position={[-3.5, 1.5, 0]} color="#67e8f9" speed={0.8} />
-        <PulsingOrb position={[4, -1.5, -1]} color="#c4b5fd" speed={1.2} />
-        <PulsingOrb position={[-1, -2, 1]} color="#f9a8d4" speed={0.6} />
+  const bgColor = isLight ? '#E6D8C3' : '#0b0f1e'
+  const cCyan = isLight ? '#3E4A3F' : '#67e8f9'
+  const cPurple = isLight ? '#4A584B' : '#c4b5fd'
+  const cPink = isLight ? '#5B6B5D' : '#f9a8d4'
 
-        <OrbitControls
-          enableZoom={false} enablePan={false}
-          autoRotate autoRotateSpeed={0.4}
-          maxPolarAngle={Math.PI / 1.8}
-          minPolarAngle={Math.PI / 3}
-        />
-      </Canvas>
-    </div>
+  return (
+    <section className="hero" id="home">
+      <div className="hero-3d-background">
+        <Canvas camera={{ position: [0, 0, 7], fov: 60 }}>
+          <color attach="background" args={[bgColor]} />
+          <ambientLight intensity={isLight ? 0.8 : 0.4} />
+          <pointLight position={[5, 5, 5]} intensity={1.2} color={cCyan} />
+          <pointLight position={[-5, -5, 3]} intensity={0.8} color={cPurple} />
+          <pointLight position={[0, 8, -4]} intensity={0.6} color={cPink} />
 
-    <div className="hero-container container">
-      {/* Status Badge */}
-      <motion.div
-        className="hero-badge"
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.2, type: 'spring' }}
-      >
-        <span className="badge-dot" />
-        Open to Opportunities • Summer 2026
-      </motion.div>
+          {!isLight && <Stars radius={60} depth={40} count={2000} factor={3} saturation={0} fade speed={0.4} />}
+          <NeuralNetwork color={cCyan} />
+          <RotatingRing color={cPurple} />
+          <FloatingRing color={cPink} />
+          <PulsingOrb position={[-3.5, 1.5, 0]} color={cCyan} speed={0.8} />
+          <PulsingOrb position={[4, -1.5, -1]} color={cPurple} speed={1.2} />
+          <PulsingOrb position={[-1, -2, 1]} color={cPink} speed={0.6} />
 
-      {/* Name — single h1, white-space:nowrap, fluid font-size */}
-      <motion.h1
-        className="hero-name"
-        initial={{ opacity: 0, y: 36 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.45, type: 'spring', stiffness: 90 }}
-      >
-        BHARATH KUMAR RAJESH
-      </motion.h1>
+          <OrbitControls
+            enableZoom={false} enablePan={false}
+            autoRotate autoRotateSpeed={0.4}
+            maxPolarAngle={Math.PI / 1.8}
+            minPolarAngle={Math.PI / 3}
+          />
+        </Canvas>
+      </div>
 
-      {/* Tagline Box */}
-      <motion.div
-        className="hero-tagline-box"
-        initial={{ opacity: 0, y: 18 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.85 }}
-      >
-        <span className="typewriter-text">
-          AI Engineer · Published Researcher · AWS Certified
-        </span>
-      </motion.div>
+      <div className="hero-container container">
+        {/* Status Badge */}
+        <motion.div
+          className="hero-badge"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.2, type: 'spring' }}
+        >
+          <span className="badge-dot" />
+          Open to Opportunities • Summer 2026
+        </motion.div>
 
-      {/* Subtitle */}
-      <motion.p
-        className="hero-subtitle"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.1 }}
-      >
-        MS Computer Science @ Pace University&nbsp;&nbsp;|&nbsp;&nbsp;New York City
-      </motion.p>
+        {/* Name — single h1, white-space:nowrap, fluid font-size */}
+        <motion.h1
+          className="hero-name"
+          initial={{ opacity: 0, y: 36 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.45, type: 'spring', stiffness: 90 }}
+        >
+          BHARATH KUMAR RAJESH
+        </motion.h1>
 
-      {/* Buttons */}
-      <motion.div
-        className="hero-buttons"
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.3 }}
-      >
-        <motion.a href="#projects" className="btn btn-primary" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-          View My Work <ArrowRight size={15} />
-        </motion.a>
-        <motion.a href="#contact" className="btn btn-secondary" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-          Get In Touch <Mail size={15} />
-        </motion.a>
-        <motion.button className="btn btn-accent" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-          Download Resume <Download size={15} />
-        </motion.button>
-      </motion.div>
+        {/* Tagline Box */}
+        <motion.div
+          className="hero-tagline-box"
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.85 }}
+        >
+          <span className="typewriter-text">
+            AI Engineer · Published Researcher · AWS Certified
+          </span>
+        </motion.div>
 
-      {/* Social Links */}
-      <motion.div
-        className="hero-socials"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.6 }}
-      >
-        <motion.a href="https://github.com/thebharathkumar" target="_blank" rel="noopener noreferrer"
-          className="social-link" whileHover={{ scale: 1.2 }}>
-          <Github size={22} />
-        </motion.a>
-        <motion.a href="https://linkedin.com/in/thebharathkumar" target="_blank" rel="noopener noreferrer"
-          className="social-link" whileHover={{ scale: 1.2 }}>
-          <Linkedin size={22} />
-        </motion.a>
-      </motion.div>
+        {/* Subtitle */}
+        <motion.p
+          className="hero-subtitle"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.1 }}
+        >
+          MS Computer Science @ Pace University&nbsp;&nbsp;|&nbsp;&nbsp;New York City
+        </motion.p>
 
-      {/* Scroll Indicator */}
-      <motion.div className="scroll-indicator" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2 }}>
-        <motion.div className="scroll-dot" animate={{ y: [0, 9, 0] }} transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }} />
-      </motion.div>
-    </div>
-  </section>
-)
+        {/* Buttons */}
+        <motion.div
+          className="hero-buttons"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.3 }}
+        >
+          <motion.a href="#projects" className="btn btn-primary" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+            View My Work <ArrowRight size={15} />
+          </motion.a>
+          <motion.a href="#contact" className="btn btn-secondary" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+            Get In Touch <Mail size={15} />
+          </motion.a>
+          <motion.button className="btn btn-accent" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+            Download Resume <Download size={15} />
+          </motion.button>
+        </motion.div>
+
+        {/* Social Links */}
+        <motion.div
+          className="hero-socials"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.6 }}
+        >
+          <motion.a href="https://github.com/thebharathkumar" target="_blank" rel="noopener noreferrer"
+            className="social-link" whileHover={{ scale: 1.2 }}>
+            <Github size={22} />
+          </motion.a>
+          <motion.a href="https://linkedin.com/in/thebharathkumar" target="_blank" rel="noopener noreferrer"
+            className="social-link" whileHover={{ scale: 1.2 }}>
+            <Linkedin size={22} />
+          </motion.a>
+        </motion.div>
+
+        <motion.div className="scroll-indicator" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2 }}>
+          <motion.div className="scroll-dot" animate={{ y: [0, 9, 0] }} transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }} style={{ backgroundColor: cCyan }} />
+        </motion.div>
+      </div>
+    </section>
+  )
+}
 
 export default Hero
