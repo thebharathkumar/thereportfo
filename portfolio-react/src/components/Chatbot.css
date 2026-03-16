@@ -529,7 +529,13 @@
     }
 
     .chatbot-trigger {
-        bottom: 20px;
-        left: 20px;
+        bottom: 16px;
+        left: 16px;
+        width: 48px;
+        height: 48px;
+    }
+
+    .trigger-label {
+        font-size: 0.65rem;
     }
 }

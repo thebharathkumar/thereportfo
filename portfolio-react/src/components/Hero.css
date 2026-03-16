@@ -174,9 +174,13 @@
   }
 
   .hero-name {
-    /* At 390px, 4.5vw = ~17.5px. 20 chars * ~10px ≈ 200px — fits on 390px wide */
-    font-size: clamp(1.0rem, 4.5vw, 2.2rem);
+    /* Allow it to break gracefully on narrow viewports */
+    font-size: clamp(1.4rem, 6vw, 2.2rem);
     letter-spacing: 0.5px;
+    white-space: normal;
+    word-break: break-word;
+    /* Prevents long names from causing horizontal scroll */
+    line-height: 1.25;
   }
 
   .hero-tagline-box {
@@ -210,7 +214,7 @@
 
 @media (max-width: 400px) {
   .hero-name {
-    font-size: clamp(11px, 3.4vw, 1.1rem);
+    font-size: clamp(1.1rem, 5.5vw, 1.4rem);
     letter-spacing: 0.5px;
   }
 

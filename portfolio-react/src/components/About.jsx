@@ -42,8 +42,10 @@ const About = () => {
               I specialize in building AI systems, LLM pipelines, RAG architectures, and agentic workflows at scale.
             </p>
             <p>
-              As a Graduate Research Assistant at Pace University, I design and deploy production RAG pipelines,
-              NLP models, and multi-agent systems — serving 1,000+ users and cutting hallucination rates by 35%.
+              As a Graduate Assistant AI Engineering and Software Systems at Pace University,
+              I design and deploy production RAG pipelines, NLP
+              models, and multi-agent systems — serving 1,000+
+              users and cutting hallucination rates by 35%.
             </p>
             <div className="about-highlight">
               <span className="highlight-icon">▶</span>
