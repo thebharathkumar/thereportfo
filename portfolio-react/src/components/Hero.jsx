@@ -1,11 +1,39 @@
 import { useRef, useMemo, useContext } from 'react'
 import { motion } from 'framer-motion'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { OrbitControls, Stars } from '@react-three/drei'
 import { Download, Mail, ArrowRight, Github, Linkedin } from 'lucide-react'
 import * as THREE from 'three'
 import { useTheme } from '../context/ThemeContext'
 import './Hero.css'
+
+// ─── Interactive Thermal Glow ──────────────────────────────────────────────────
+const InteractiveThermalGlow = () => {
+  const lightRef = useRef()
+  const meshRef = useRef()
+  const { viewport } = useThree()
+
+  useFrame(({ mouse }) => {
+    // Convert 2D mouse [-1, 1] to 3D world coordinates over the canvas viewport
+    const x = (mouse.x * viewport.width) / 2
+    const y = (mouse.y * viewport.height) / 2
+    if (lightRef.current && meshRef.current) {
+      // Smoothly interpolate the light/mesh towards mouse position
+      lightRef.current.position.lerp(new THREE.Vector3(x, y, 1), 0.15)
+      meshRef.current.position.lerp(new THREE.Vector3(x, y, 0), 0.15)
+    }
+  })
+
+  return (
+    <>
+      <pointLight ref={lightRef} color="#fb923c" intensity={4} distance={6} decay={2} />
+      <mesh ref={meshRef}>
+        <sphereGeometry args={[0.5, 32, 32]} />
+        <meshBasicMaterial color="#ef4444" transparent opacity={0.15} blending={THREE.AdditiveBlending} />
+      </mesh>
+    </>
+  )
+}
 
 // ─── Neural Network Particle Field ───────────────────────────────────────────
 const NeuralNetwork = ({ color }) => {
@@ -150,6 +178,8 @@ const Hero = () => {
           <PulsingOrb position={[4, -1.5, -1]} color={cPurple} speed={1.2} />
           <PulsingOrb position={[-1, -2, 1]} color={cPink} speed={0.6} />
 
+          {isLight && <InteractiveThermalGlow />}
+
           <OrbitControls
             enableZoom={false} enablePan={false}
             autoRotate autoRotateSpeed={0.4}
@@ -216,9 +246,9 @@ const Hero = () => {
           <motion.a href="#contact" className="btn btn-secondary" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
             Get In Touch <Mail size={15} />
           </motion.a>
-          <motion.button className="btn btn-accent" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+          <motion.a href="/resume.pdf" download="Bharath_Kumar_Rajesh_Resume.pdf" className="btn btn-accent" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
             Download Resume <Download size={15} />
-          </motion.button>
+          </motion.a>
         </motion.div>
 
         {/* Social Links */}
