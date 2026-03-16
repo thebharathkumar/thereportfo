@@ -150,6 +150,26 @@ const FloatingRing = ({ color }) => {
   )
 }
 
+// ─── Resume Data ──────────────────────────────────────────────────────────────
+const resumeList = [
+  { id: 'ai', title: 'AI Engineer', icon: '🧠', path: '/resumes/Bharath_Kumar_Resume_AI_ENGINEER.pdf', desc: 'Focus on Artificial Intelligence and Agentic Systems' },
+  { id: 'ml', title: 'ML Engineer', icon: '🤖', path: '/resumes/Bharath_Kumar_Resume_ML_ENGINEER.pdf', desc: 'Focus on Machine Learning models and infrastructure' },
+  { id: 'research', title: 'Research Engineer', icon: '🔬', path: '/resumes/Bharath_Kumar_Resume_RESEARCH_ENGINEER.pdf', desc: 'Focus on AI/ML Research and cutting-edge NLP' },
+  { id: 'swe', title: 'Software Engineer (SWE)', icon: '💻', path: '/resumes/Bharath_Kumar_Resume_SWE.pdf', desc: 'Generalist Software Engineering' },
+  { id: 'fullstack', title: 'Fullstack Engineer', icon: '🌐', path: '/resumes/Bharath_Kumar_Resume_FULLSTACK_ENGINEER.pdf', desc: 'End-to-end web and application development' },
+  { id: 'backend', title: 'Backend Engineer', icon: '⚙️', path: '/resumes/Bharath_Kumar_Resume_BACKEND_ENGINEER.pdf', desc: 'Focus on scalable server-side systems and APIs' },
+  { id: 'data', title: 'Data Engineer', icon: '📊', path: '/resumes/Bharath_Kumar_Resume_DATA_ENGINEER.pdf', desc: 'Focus on data pipelines and scaled processing' },
+  { id: 'analyst', title: 'Data Analyst', icon: '📈', path: '/resumes/Bharath_Kumar_Resume_DATA_ANALYST.pdf', desc: 'Focus on analytics, BI, and data visualization' },
+  { id: 'cloud', title: 'Cloud Engineer', icon: '☁️', path: '/resumes/Bharath_Kumar_Resume_CLOUD_ENGINEER.pdf', desc: 'Focus on AWS, GCP, Azure infrastructure' },
+  { id: 'devops', title: 'DevOps Engineer', icon: '🏗️', path: '/resumes/Bharath_Kumar_Resume_DEVOPS_ENGINEER.pdf', desc: 'Focus on CI/CD pipelines and deployment' },
+  { id: 'sre', title: 'Site Reliability Eng (SRE)', icon: '🛡️', path: '/resumes/Bharath_Kumar_Resume_SRE.pdf', desc: 'Focus on system stability and high availability' },
+  { id: 'qa', title: 'Quality Engineer', icon: '✅', path: '/resumes/Bharath_Kumar_Resume_QUALITY_ENGINEER.pdf', desc: 'Focus on automated testing and QA systems' },
+  { id: 'solutions', title: 'Solutions Engineer', icon: '🤝', path: '/resumes/Bharath_Kumar_Resume_SOLUTIONS_ENGINEER.pdf', desc: 'Customer-facing technical architecture' },
+  { id: 'devrel', title: 'Developer Advocate', icon: '🥑', path: '/resumes/Bharath_Kumar_Resume_DEV_ADVOCATE.pdf', desc: 'Focus on community, docs, and DevRel' },
+  { id: 'aipm', title: 'AI Product Manager', icon: '📱', path: '/resumes/Bharath_Kumar_Resume_AI_PM.pdf', desc: 'Product leadership in AI/ML products' },
+  { id: 'techpm', title: 'Technical PM', icon: '📋', path: '/resumes/Bharath_Kumar_Resume_TECHNICAL_PM.pdf', desc: 'Technical Product Management & Strategy' },
+]
+
 // ─── Hero Main ────────────────────────────────────────────────────────────────
 const Hero = () => {
   const { theme } = useTheme()
@@ -269,28 +289,16 @@ const Hero = () => {
               <h3 className="modal-title">Select a Profile</h3>
               <p className="modal-desc">Which role are you hiring for?</p>
 
-              <div className="resume-options">
-                <a href="/resumes/ml-engineer-resume.pdf" download="Bharath_Kumar_Rajesh_ML_Engineer_Resume.pdf" className="resume-option-card">
-                  <div className="option-icon">🧠</div>
-                  <div className="option-text">
-                    <strong>AI / ML Engineer</strong>
-                    <span>Focus on Machine Learning, NLP, and Agentic Systems</span>
-                  </div>
-                </a>
-                <a href="/resumes/data-engineer-resume.pdf" download="Bharath_Kumar_Rajesh_Data_Engineer_Resume.pdf" className="resume-option-card">
-                  <div className="option-icon">📊</div>
-                  <div className="option-text">
-                    <strong>Data Engineer</strong>
-                    <span>Focus on Data Pipelines, Cloud Infrastructure, and Scaled Processing</span>
-                  </div>
-                </a>
-                <a href="/resumes/software-engineer-resume.pdf" download="Bharath_Kumar_Rajesh_Software_Engineer_Resume.pdf" className="resume-option-card">
-                  <div className="option-icon">💻</div>
-                  <div className="option-text">
-                    <strong>Software Engineer</strong>
-                    <span>Focus on Full-Stack Development, Backend Systems, and APIs</span>
-                  </div>
-                </a>
+              <div className="resume-options custom-scrollbar">
+                {resumeList.map((resume) => (
+                  <a key={resume.id} href={resume.path} download={`Bharath_Kumar_${resume.title.replace(/ /g, '_')}_Resume.pdf`} className="resume-option-card">
+                    <div className="option-icon">{resume.icon}</div>
+                    <div className="option-text">
+                      <strong>{resume.title}</strong>
+                      <span>{resume.desc}</span>
+                    </div>
+                  </a>
+                ))}
               </div>
             </motion.div>
           </div>
