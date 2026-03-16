@@ -41,34 +41,38 @@
   --section-bg-alt: rgba(10, 14, 28, 0.5);
 }
 
-/* ─── LIGHT THEME ─── */
+/* ─── Light Theme Overrides (Luxury Olive & Beige) ─── */
 [data-theme="light"] {
-  --bg-primary: #f8fafc;
-  --bg-secondary: #f1f5f9;
-  --bg-card: rgba(255, 255, 255, 0.9);
-  --bg-card-hover: rgba(255, 255, 255, 1);
+  --bg-primary: #E6D8C3;
+  /* Beige background */
+  --bg-secondary: #DFD0BA;
+  /* Slightly darker beige for cards/sections */
+  --bg-card: rgba(223, 208, 186, 0.6);
+  --bg-card-hover: rgba(223, 208, 186, 0.9);
 
-  --neon-cyan: #0ea5e9;
-  --neon-purple: #7c3aed;
-  --neon-pink: #db2777;
-  --neon-green: #059669;
-  --neon-blue: #2563eb;
-  --neon-orange: #ea580c;
+  --text-primary: #3E4A3F;
+  /* Deep Olive for primary text */
+  --text-secondary: #4A584B;
+  /* Slightly lighter olive for secondary text */
+  --text-muted: #5B6B5D;
+  /* Muted olive */
 
-  --text-primary: #0f172a;
-  --text-secondary: #334155;
-  --text-muted: #64748b;
+  /* Brand accents mapped to Olive variants for a cohesive luxury look */
+  --neon-cyan: #3E4A3F;
+  /* Map cyan to Deep Olive for consistency */
+  --neon-blue: #4A584B;
+  --neon-purple: #3E4A3F;
+  --neon-pink: #5B6B5D;
 
-  --glass-border: rgba(15, 23, 42, 0.1);
-  --glass-border-hover: rgba(14, 165, 233, 0.35);
-  --glow-card: 0 2px 12px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(15, 23, 42, 0.08);
+  /* Borders and Glass */
+  --glass-border: rgba(62, 74, 63, 0.15);
+  /* Olive tinted borders */
+  --glass-border-hover: rgba(62, 74, 63, 0.3);
+  --glass-bg: rgba(230, 216, 195, 0.7);
+  /* Beige glass */
 
-  --grad-text: linear-gradient(135deg, #0ea5e9 0%, #7c3aed 55%, #db2777 100%);
-
-  --toggle-bg: rgba(14, 165, 233, 0.08);
-  --toggle-border: rgba(14, 165, 233, 0.25);
-  --toggle-color: #0ea5e9;
-  --section-bg-alt: rgba(241, 245, 249, 0.6);
+  --toggle-color: #3E4A3F;
+  --section-bg-alt: rgba(223, 208, 186, 0.4);
 }
 
 html {
@@ -114,6 +118,7 @@ body {
   overflow-x: hidden;
   background: var(--bg-primary);
   transition: background 0.35s ease;
+  padding-bottom: 20px;
 }
 
 [data-theme="dark"] .App::before {
@@ -259,12 +264,15 @@ h6 {
 /* ─── Card ─── */
 .card {
   background: var(--bg-card);
-  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-radius: 12px;
-  padding: 26px;
-  position: relative;
-  transition: all 0.28s ease;
+  padding: 28px;
+  border: 1px solid var(--glass-border);
   box-shadow: var(--glow-card);
+  transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  position: relative;
+  z-index: 1;
 }
 
 .card:hover {
@@ -378,20 +386,23 @@ h6 {
 
 @media (max-width: 768px) {
   section {
-    padding: 56px 16px;
+    padding: 72px 16px;
   }
 
   .container {
-    padding: 0 16px;
-  }
-
-  .card {
-    padding: 18px;
+    padding: 0 20px;
   }
 
   .section-title {
-    font-size: 1.4rem;
-    letter-spacing: 2px;
+    margin-bottom: 32px;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  .App {
+    padding-bottom: 80px;
   }
 }
 

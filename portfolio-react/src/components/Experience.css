@@ -152,4 +152,8 @@
     height: 30px;
     border-radius: 6px;
   }
+
+  .timeline-content {
+    padding: 16px 14px;
+  }
 }
