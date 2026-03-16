@@ -2,7 +2,7 @@ import { useRef, useMemo, useContext, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { OrbitControls, Stars } from '@react-three/drei'
-import { Download, Mail, ArrowRight, Github, Linkedin, X } from 'lucide-react'
+import { Download, Mail, ArrowRight, Github, Linkedin, X, ArrowLeft } from 'lucide-react'
 import * as THREE from 'three'
 import { useTheme } from '../context/ThemeContext'
 import './Hero.css'
@@ -175,6 +175,45 @@ const Hero = () => {
   const { theme } = useTheme()
   const isLight = theme === 'light'
   const [showResumeModal, setShowResumeModal] = useState(false)
+  const [step, setStep] = useState(1)
+  const [selectedCategory, setSelectedCategory] = useState(null)
+
+  const handleCategorySelect = (categoryId) => {
+    setSelectedCategory(categoryId)
+    setStep(2)
+  }
+
+  const handleCloseModal = () => {
+    setShowResumeModal(false)
+    setStep(1)
+    setSelectedCategory(null)
+  }
+
+  const handleBack = () => {
+    setStep(1)
+    setSelectedCategory(null)
+  }
+
+  const groupedResumes = {
+    'ai_data': {
+      title: 'AI & Data',
+      desc: 'Machine Learning, Data Science, and AI Engineering',
+      icon: '🧠',
+      roles: ['ai', 'ml', 'research', 'data', 'analyst']
+    },
+    'swe_infra': {
+      title: 'Software & Infrastructure',
+      desc: 'Fullstack, Backend, Cloud, and SRE',
+      icon: '💻',
+      roles: ['swe', 'fullstack', 'backend', 'cloud', 'devops', 'sre', 'qa']
+    },
+    'product_advocacy': {
+      title: 'Product & Advocacy',
+      desc: 'Product Management, Solutions, and DevRel',
+      icon: '🥑',
+      roles: ['solutions', 'devrel', 'aipm', 'techpm']
+    }
+  }
 
   const bgColor = isLight ? '#E6D8C3' : '#0b0f1e'
   const cCyan = isLight ? '#3E4A3F' : '#67e8f9'
@@ -274,7 +313,7 @@ const Hero = () => {
 
         {/* Resume Selection Modal */}
         {showResumeModal && (
-          <div className="resume-modal-overlay" onClick={() => setShowResumeModal(false)}>
+          <div className="resume-modal-overlay" onClick={handleCloseModal}>
             <motion.div
               className="resume-modal-content"
               onClick={e => e.stopPropagation()}
@@ -282,23 +321,44 @@ const Hero = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95 }}
             >
-              <button className="close-modal" onClick={() => setShowResumeModal(false)}>
+              {step === 2 && (
+                <button className="back-btn" onClick={handleBack}>
+                  <ArrowLeft size={16} /> Back
+                </button>
+              )}
+              <button className="close-modal" onClick={handleCloseModal}>
                 <X size={20} />
               </button>
 
-              <h3 className="modal-title">Select a Profile</h3>
-              <p className="modal-desc">Which role are you hiring for?</p>
+              <h3 className="modal-title">
+                {step === 1 ? 'Select a Domain' : groupedResumes[selectedCategory].title}
+              </h3>
+              <p className="modal-desc">
+                {step === 1 ? 'Which domain are you hiring for?' : 'Which specific role aligns with your needs?'}
+              </p>
 
               <div className="resume-options custom-scrollbar">
-                {resumeList.map((resume) => (
-                  <a key={resume.id} href={resume.path} download={`Bharath_Kumar_${resume.title.replace(/ /g, '_')}_Resume.pdf`} className="resume-option-card">
-                    <div className="option-icon">{resume.icon}</div>
-                    <div className="option-text">
-                      <strong>{resume.title}</strong>
-                      <span>{resume.desc}</span>
-                    </div>
-                  </a>
-                ))}
+                {step === 1 ? (
+                  Object.entries(groupedResumes).map(([id, group]) => (
+                    <button key={id} className="resume-option-card quiz-option-card" onClick={() => handleCategorySelect(id)}>
+                      <div className="option-icon">{group.icon}</div>
+                      <div className="option-text">
+                        <strong>{group.title}</strong>
+                        <span>{group.desc}</span>
+                      </div>
+                    </button>
+                  ))
+                ) : (
+                  resumeList.filter(r => groupedResumes[selectedCategory].roles.includes(r.id)).map((resume) => (
+                    <a key={resume.id} href={resume.path} download={`Bharath_Kumar_${resume.title.replace(/ /g, '_')}_Resume.pdf`} className="resume-option-card">
+                      <div className="option-icon">{resume.icon}</div>
+                      <div className="option-text">
+                        <strong>{resume.title}</strong>
+                        <span>{resume.desc}</span>
+                      </div>
+                    </a>
+                  ))
+                )}
               </div>
             </motion.div>
           </div>

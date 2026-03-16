@@ -283,6 +283,34 @@
   color: var(--text-primary);
 }
 
+.back-btn {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.back-btn:hover {
+  background: rgba(103, 232, 249, 0.1);
+  color: var(--neon-cyan);
+}
+
+[data-theme="light"] .back-btn:hover {
+  background: rgba(62, 74, 63, 0.1);
+  color: var(--text-primary);
+}
+
 .modal-title {
   font-size: 1.4rem;
   margin-bottom: 6px;
@@ -346,6 +374,14 @@
   border-radius: 12px;
   text-decoration: none;
   transition: all 0.25s ease;
+}
+
+.quiz-option-card {
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+  color: inherit;
+  font-family: inherit;
 }
 
 [data-theme="light"] .resume-option-card {
