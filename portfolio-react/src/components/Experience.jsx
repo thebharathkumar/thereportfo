@@ -10,7 +10,7 @@ const Experience = () => {
 
   const experiences = [
     {
-      title: 'Graduate Research Assistant – AI Engineering',
+      title: 'Graduate Assistant AI Engineering and Software Systems',
       company: 'Pace University',
       location: 'New York, NY',
       date: 'Mar 2025 – Present',
