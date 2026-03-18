@@ -31,7 +31,7 @@ const KB = {
     },
     certifications: {
         patterns: ['certifications', 'certified', 'aws', 'rhcsa', 'credentials', 'badges', 'licenses'],
-        response: `CERTIFICATION DATABASE LOADED. (15+ total)\n\n**Featured:**\n→ AWS Certified Solutions Architect – Associate (SAA-C03)\n→ Red Hat Certified System Administrator (RHCSA)\n→ Certified for AI — micro1\n\n**Additional:**\n→ AWS Educate (Cloud, ML, NLP)\n→ Forage Simulations (JPMorgan, Accenture, Citi)\n→ Coursera, Cognizant, Unschool programs\n→ Pace INSPIRE Program`
+        response: `CERTIFICATION DATABASE LOADED. (16+ total)\n\n**Featured:**\n→ AWS Certified Solutions Architect – Associate (SAA-C03)\n→ Red Hat Certified System Administrator (RHCSA)\n→ Certified for AI — micro1\n\n**Additional:**\n→ Claude with Amazon Bedrock (Anthropic)\n→ AWS Educate (Cloud, ML, NLP)\n→ Forage Simulations (JPMorgan, Accenture, Citi)\n→ Coursera, Cognizant, Unschool programs\n→ Pace INSPIRE Program`
     },
     contact: {
         patterns: ['contact', 'email', 'reach', 'hire', 'connect', 'linkedin', 'social', 'message', 'touch'],

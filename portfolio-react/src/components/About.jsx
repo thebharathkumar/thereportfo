@@ -12,7 +12,7 @@ const About = () => {
     { number: '3.86', label: 'MSCS GPA', icon: <Award size={20} />, color: 'var(--neon-cyan)' },
     { number: '1K+', label: 'Users Served', icon: <Database size={20} />, color: 'var(--neon-purple)' },
     { number: '90%', label: 'ML Accuracy', icon: <Brain size={20} />, color: 'var(--neon-pink)' },
-    { number: '15+', label: 'Certifications', icon: <BookOpen size={20} />, color: 'var(--neon-green)' }
+    { number: '16+', label: 'Certifications', icon: <BookOpen size={20} />, color: 'var(--neon-green)' }
   ]
 
   return (

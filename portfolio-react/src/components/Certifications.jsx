@@ -36,6 +36,7 @@ const Certifications = () => {
   ]
 
   const additional = [
+    { title: 'Claude with Amazon Bedrock', issuer: 'Anthropic', date: 'Mar 2026', skills: ['Amazon Bedrock', 'Claude'], id: 'rgpsk7edqkdg' },
     { title: 'AWS Educate Introduction to Cloud 101', issuer: 'Amazon Web Services', date: 'Oct 2025', skills: ['AWS', 'Cloud'] },
     { title: 'J.P. Morgan – Quantitative Research Job Simulation', issuer: 'Forage', date: 'Jul 2025', id: 'hoPh7a7vqXQfGqgzx' },
     { title: 'Accenture – Data Analytics & Visualization Simulation', issuer: 'Forage', date: 'Jan 2025', skills: ['Apache Airflow', 'Data Analysis'], id: 'sFbZfjtCdyX4Wgyv6' },
