@@ -9,10 +9,12 @@
 import { build } from "esbuild";
 import { readFile, writeFile, mkdir, copyFile, access } from "node:fs/promises";
 
-// Static files (next to index.html) that should be copied verbatim into dist/
-// if present. Optional: a missing file is skipped, not an error, so the build
-// stays green even before the asset is added.
-const STATIC_ASSETS = ["Bharath_Kumar_Rajesh_Master_Resume.pdf"];
+// Static files (next to index.html) copied into dist/, optionally under a
+// cleaner served name ({ from, to }). A missing source is skipped, not an
+// error, so the build stays green even before the asset is added.
+const STATIC_ASSETS = [
+  { from: "Bharath_Kumar_Rajesh_Master_Resume.pdf", to: "resume.pdf" },
+];
 
 // Plain JS sources are concatenated verbatim (already valid).
 const JS_SOURCES = ["src/content.js"];
@@ -69,14 +71,14 @@ async function run() {
   await writeFile("dist/gta.css", css.outputFiles[0].text);
 
   const copiedAssets = [];
-  for (const asset of STATIC_ASSETS) {
+  for (const { from, to } of STATIC_ASSETS) {
     try {
-      await access(asset);
+      await access(from);
     } catch {
       continue; // not present yet — skip without failing the build
     }
-    await copyFile(asset, `dist/${asset}`);
-    copiedAssets.push(asset);
+    await copyFile(from, `dist/${to}`);
+    copiedAssets.push(to);
   }
 
   const extra = copiedAssets.length ? `, ${copiedAssets.join(", ")}` : "";

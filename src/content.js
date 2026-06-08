@@ -25,7 +25,7 @@ window.PROFILE = {
     twitter: "https://twitter.com/passdweed",
     portfolio: "https://thebharath.co",
     email: "bharath.kr702@gmail.com",
-    resume: "Bharath_Kumar_Rajesh_Master_Resume.pdf",
+    resume: "resume.pdf",
   },
 };
 
