@@ -12,7 +12,7 @@ import { readFile, writeFile, mkdir, copyFile, access } from "node:fs/promises";
 // Static files (next to index.html) that should be copied verbatim into dist/
 // if present. Optional: a missing file is skipped, not an error, so the build
 // stays green even before the asset is added.
-const STATIC_ASSETS = ["resume.pdf"];
+const STATIC_ASSETS = ["Bharath_Kumar_Rajesh_Master_Resume.pdf"];
 
 // Plain JS sources are concatenated verbatim (already valid).
 const JS_SOURCES = ["src/content.js"];
