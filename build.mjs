@@ -7,7 +7,12 @@
    fully static, GitHub Pages friendly (served from root).
    ============================================================ */
 import { build } from "esbuild";
-import { readFile, writeFile, mkdir, copyFile } from "node:fs/promises";
+import { readFile, writeFile, mkdir, copyFile, access } from "node:fs/promises";
+
+// Static files (next to index.html) that should be copied verbatim into dist/
+// if present. Optional: a missing file is skipped, not an error, so the build
+// stays green even before the asset is added.
+const STATIC_ASSETS = ["resume.pdf"];
 
 // Plain JS sources are concatenated verbatim (already valid).
 const JS_SOURCES = ["src/content.js"];
@@ -63,7 +68,19 @@ async function run() {
   await writeFile("dist/bundle.js", bundle);
   await writeFile("dist/gta.css", css.outputFiles[0].text);
 
-  console.log("Built: gta.css, bundle.js (root + dist/)");
+  const copiedAssets = [];
+  for (const asset of STATIC_ASSETS) {
+    try {
+      await access(asset);
+    } catch {
+      continue; // not present yet — skip without failing the build
+    }
+    await copyFile(asset, `dist/${asset}`);
+    copiedAssets.push(asset);
+  }
+
+  const extra = copiedAssets.length ? `, ${copiedAssets.join(", ")}` : "";
+  console.log(`Built: gta.css, bundle.js${extra} (root + dist/)`);
 }
 
 run().catch((e) => {
