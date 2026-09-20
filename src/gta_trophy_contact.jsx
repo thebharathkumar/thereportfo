@@ -47,10 +47,42 @@ function TrophyCase() {
                   <span className="p-venue">{p.venue}</span>
                 </div>
                 <div className="p-title">{p.title}</div>
+                {p.figure && <div className="p-figure">{p.figure}</div>}
                 <div className="p-meta">{p.meta}</div>
               </div>
             ))}
           </Reveal>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- WRITING :: field notes ---------------- */
+function Writing() {
+  return (
+    <section className="section" id="writing">
+      <div className="wrap">
+        <SecHead
+          kicker="Field Notes // Writing"
+          title="Written"
+          em="up."
+          note={WRITING.stub}
+        />
+        <div className="writing-grid">
+          {WRITING.items.map((w, i) => (
+            <Reveal d={String((i % 3) + 1)} key={w.title} style={{ display: "flex" }}>
+              <a className="wcard" href={w.href} target="_blank" rel="noopener" style={{ flex: 1 }}>
+                <div className="wc-top">
+                  <span className="wc-kind">{w.kind}</span>
+                  <span className="wc-link"><Icon.ext /></span>
+                </div>
+                <div className="wc-title">{w.title}</div>
+                <div className="wc-handle">{w.handle}</div>
+                <p className="wc-desc">{w.desc}</p>
+              </a>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>
@@ -132,4 +164,4 @@ function Foot() {
   );
 }
 
-Object.assign(window, { TrophyCase, Safehouse, Foot });
+Object.assign(window, { TrophyCase, Writing, Safehouse, Foot });

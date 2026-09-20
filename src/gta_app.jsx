@@ -16,9 +16,11 @@ function App() {
       <main>
         <StatPanel />
         <MissionLog />
+        <ErrorBars />
         <HeistBoard />
         <Garage />
         <TrophyCase />
+        <Writing />
         <Safehouse />
       </main>
       <Foot />

@@ -5,8 +5,9 @@ Personal portfolio for **Bharath Kumar Rajesh, AI Engineer**.
 A dark, technical-editorial single page with a confident GTA structural homage
 (mission briefing terminal, not video-game cosplay). The narrative spine: agents
 in production are unreliable, and Bharath builds the triage, eval, observability,
-and governance tooling that makes them trustworthy. The in-development flagship,
-the MCP Trust Scanner, ties the observability and governance work together.
+and governance tooling that makes them trustworthy. The keystone is ForgeSync,
+reconciliation infrastructure for construction finance. The MCP Trust Scanner is
+a roadmap card, labelled as not built, and never presented as shipped.
 
 ## Stack
 
@@ -28,9 +29,9 @@ src/
   gta.css               stylesheet source
   gta_components.jsx    shared utils, icons, boot sequence, nav, HUD, easter eggs
   gta_hero.jsx          "Now Entering" hero
-  gta_skills_exp.jsx    Stat Panel (skills) + Mission Log (experience)
-  gta_projects.jsx      Heist Board (featured) + Garage (searchable grid)
-  gta_trophy_contact.jsx Trophy Case (certs/pubs) + Safehouse (contact) + footer
+  gta_skills_exp.jsx    Stat Panel (skills), Mission Log (experience), Error Bars
+  gta_projects.jsx      Heist Board (keystone + featured + roadmap) + Garage
+  gta_trophy_contact.jsx Trophy Case (certs/pubs) + Writing + Safehouse + footer
   gta_app.jsx           root composition
 build.mjs               esbuild build: src/ -> bundle.js + gta.css (root)
 bundle.js, gta.css      built artifacts, committed for GitHub Pages
@@ -80,10 +81,20 @@ The same `npm run build` produces both the root artifacts (Pages) and `dist/`
 ## Notes
 
 - No invented metrics: skills are categorical with no proficiency percentages,
-  and only verified facts appear.
+  and only verified facts appear. Every figure on the page is published in a
+  public README or came off a committed benchmark report.
+- The "Numbers, with their error bars" section (`#errorbars`) pairs each headline
+  figure with what it does not mean. Any new figure added to the page should get
+  a row there, or a reason why it does not need one.
 - Compsoft Technologies is NLP sentiment work only; the CNN work is the separate
   Springer Nature plant-classification paper.
-- The MCP Trust Scanner is labeled in development.
+- Artie Labs pull requests are opened, not merged. The word "merged" must never
+  appear in the Artie Labs line.
+- The MCP Trust Scanner is not built. It renders as a roadmap card, visually
+  distinct (dashed border, muted status) from the shipped work.
+- loopcheck's recall figure (0.33) and its small-sample caveat always ship
+  together, in the project copy and in the error-bars table.
+- The `downgrade` repo publishes no test count and no coverage figure.
 - Accessibility and `prefers-reduced-motion` are respected: the boot sequence
   and heavy motion are skipped when reduced motion is set, and scroll reveals
   fail open so content is never stuck hidden.
@@ -93,6 +104,10 @@ The same `npm run build` produces both the root artifacts (Pages) and `dist/`
 
 ## To wire up later
 
-- Drop a `resume.pdf` at the repo root for the hero Resume button.
-- The six garage-only repo links assume `github.com/thebharathkumar/<repo>`;
-  confirm each slug.
+- `Bharath_Kumar_Rajesh_Master_Resume.pdf` is served at `/resume.pdf` by the
+  build. The committed PDF predates ForgeSync, loopcheck, costfloor and
+  downgrade; replacing that file is all that is needed, the link is stable.
+- `window.WRITING` in `src/content.js` carries the Medium profile and the
+  mcp-otel-audit writeup. Individual post links are not wired yet.
+- Garage-only repo links assume `github.com/thebharathkumar/<repo>`; confirm
+  each slug.

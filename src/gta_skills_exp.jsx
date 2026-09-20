@@ -92,4 +92,42 @@ function MissionLog() {
   );
 }
 
-Object.assign(window, { SecHead, StatPanel, MissionLog });
+/* ---------------- ERROR BARS :: what the numbers do not mean ----------------
+   Sits between the Mission Log and the Heist Board. Every row is a figure
+   claimed elsewhere on this page, next to the reading it does not support. */
+function ErrorBars() {
+  return (
+    <section className="section" id="errorbars">
+      <div className="wrap">
+        <SecHead
+          kicker="Dossier // Disclosure"
+          title="Numbers, with their"
+          em="error bars."
+          note="Each figure on this page, and the thing it does not mean."
+        />
+        <Reveal className="eb-table">
+          <div className="eb-row eb-head" role="presentation">
+            <span className="eb-claim">Claim</span>
+            <span className="eb-figure">Figure</span>
+            <span className="eb-caveat">What it does not mean</span>
+          </div>
+          {ERRORBARS.map((r, i) => (
+            <div className="eb-row" key={i}>
+              <span className="eb-claim">
+                <i className="eb-idx">{String(i + 1).padStart(2, "0")}</i>
+                {r.claim}
+              </span>
+              <span className="eb-figure">{r.figure}</span>
+              <span className="eb-caveat">{r.caveat}</span>
+            </div>
+          ))}
+        </Reveal>
+        <Reveal className="eb-foot" d="1">
+          <span className="tick"></span> {ERRORBARS_FOOT}
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+Object.assign(window, { SecHead, StatPanel, MissionLog, ErrorBars });
