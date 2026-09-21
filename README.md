@@ -17,13 +17,17 @@ Static site, no framework runtime build required to view.
 - Source written as JSX in `src/`, precompiled to a single `bundle.js` by
   [esbuild](https://esbuild.github.io/) so the browser never ships an in-page
   transpiler.
-- One stylesheet (`src/gta.css`), minified to `gta.css` on build.
+- One stylesheet (`src/gta.css`), minified on build.
+- Built assets are content-hashed into `assets/`, so they can be cached
+  aggressively and for ever without a returning visitor being served a stale
+  copy. See **Caching** below.
 - Fonts: Instrument Serif (display), Hanken Grotesk (body), JetBrains Mono (HUD).
 
 ## Project layout
 
 ```
-index.html              deploy entry (loads gta.css + bundle.js + React CDN)
+index.html              deploy entry, rewritten on build to point at the
+                        current hashed assets (plus the React CDN)
 src/
   content.js            single source of truth for all copy, projects, links
   gta.css               stylesheet source
@@ -33,8 +37,9 @@ src/
   gta_projects.jsx      Heist Board (keystone + featured + roadmap) + Garage
   gta_trophy_contact.jsx Trophy Case (certs/pubs) + Writing + Safehouse + footer
   gta_app.jsx           root composition
-build.mjs               esbuild build: src/ -> bundle.js + gta.css (root)
-bundle.js, gta.css      built artifacts, committed for GitHub Pages
+build.mjs               esbuild build: src/ -> assets/ (root + dist/)
+assets/                 built, content-hashed artifacts, committed for Pages
+                        assets/bundle.<hash>.js, assets/gta.<hash>.css
 CNAME, .nojekyll        GitHub Pages config for thebharath.co
 ```
 
@@ -47,8 +52,12 @@ After editing, rebuild the artifacts:
 
 ```bash
 npm install   # first time only, installs esbuild (dev dependency)
-npm run build # regenerates bundle.js and gta.css at the repo root
+npm run build # regenerates assets/ and rewrites index.html to match
 ```
+
+The build is idempotent and self-cleaning: rebuilding unchanged sources leaves
+`index.html` byte-identical, and artifacts from previous builds are deleted so
+exactly one bundle and one stylesheet are ever committed.
 
 Preview locally by serving the root over http (the CDN scripts need it):
 
@@ -70,13 +79,29 @@ git-ignored and built fresh on each deploy.
 
 ### GitHub Pages
 
-Pages serves the repo root. `index.html`, `gta.css`, and `bundle.js` are
-committed at the root, with `CNAME` pointing at `thebharath.co` and `.nojekyll`
-so Pages serves the files verbatim. Push to the default branch and enable Pages
-(source: root) once.
+Pages serves the repo root. `index.html` and `assets/` are committed at the
+root, with `CNAME` pointing at `thebharath.co` and `.nojekyll` so Pages serves
+the files verbatim. Push to the default branch and enable Pages (source: root)
+once.
 
 The same `npm run build` produces both the root artifacts (Pages) and `dist/`
 (Vercel), so they never drift.
+
+## Caching
+
+`vercel.json` serves `/assets/*` with `Cache-Control: public, max-age=31536000,
+immutable`, and `/` and `/index.html` with `max-age=0, must-revalidate`.
+
+That split only works because the asset filenames carry a content hash. An
+earlier version applied the same immutable header to the stable paths
+`/bundle.js` and `/gta.css`. `immutable` tells a browser not to revalidate at
+all, so every returning visitor kept being served a year-old bundle behind a
+freshly revalidated `index.html`, and the site appeared not to update even
+though the deploy was correct. A fresh origin (a `*.vercel.app` preview URL)
+looked fine, which made it read as a deploy problem rather than a cache one.
+
+The rule: never put `immutable` on a path whose contents can change. Hash the
+filename or do not cache it.
 
 ## Notes
 
