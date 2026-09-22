@@ -1,190 +1,79 @@
-# Portfolio Website - Bharath Kumar Rajesh
+# thebharath.co
 
-A modern, responsive portfolio website featuring an AI Text Cleaner-inspired theme with clean design and smooth animations.
+Portfolio for Bharath Kumar Rajesh, AI Engineer. Single page, dark, editorial:
+a numbered hairline index of 24 repositories, a viewport-wide serif wordmark,
+and three effects (1-bit Bayer dither, flashlight, blob cursor).
 
-## 🎨 Design Theme
+Design spec: `docs/superpowers/specs/2026-09-21-portfolio-index-design.md`
+Implementation plan: `docs/superpowers/plans/2026-09-21-portfolio-index.md`
 
-This portfolio is inspired by modern AI tool interfaces, featuring:
-- Clean, professional layout with bordered sections
-- Warm beige/cream background (#F5E6D3)
-- Yellow highlighted sections for important content
-- Blue action buttons and interactive elements
-- Professional typography with Sora and Work Sans fonts
-- Smooth animations and transitions
+## Stack
 
-## 🚀 Features
+Vite, React 19, TypeScript (strict), Vitest. One UI dependency:
+[thinking-orbs](https://github.com/Jakubantalik/thinking-orbs) (MIT), the
+dotted agent-status orbs on the hero status line, the IN PROGRESS / ROADMAP
+badges, the contact email and the loader. The hero is a hand-written WebGL1
+shader; project covers are Canvas2D. Fonts from Google Fonts: Fraunces
+(display), Geist Mono (labels), Geist (paragraphs).
 
-- **Responsive Design**: Fully responsive across all devices (mobile, tablet, desktop)
-- **Smooth Animations**: Scroll-triggered animations and smooth transitions
-- **Interactive Resume Modal**: Choose from 3 different resume types
-- **Contact Form**: Direct email integration using mailto
-- **Mobile Navigation**: Hamburger menu for mobile devices
-- **Scroll Animations**: Elements fade in as you scroll
-- **Stats Counter**: Animated statistics in the About section
-- **Back to Top Button**: Quick navigation back to top
-- **SEO Optimized**: Proper meta tags and semantic HTML
+## Develop
 
-## 📁 Project Structure
+    npm install
+    npm run dev        # http://localhost:5173
+    npm test           # vitest, 32 tests
+    npm run typecheck  # tsc
+    npm run build      # tsc + vite build -> dist/
+    npm run preview    # serve dist/ locally
 
-```
-thereportfo/
-├── index.html          # Main HTML file
-├── styles.css          # All CSS styles
-├── script.js           # JavaScript functionality
-├── resumes/           # Resume PDF files
-│   ├── software-engineer-resume.pdf
-│   ├── data-engineer-resume.pdf
-│   └── ml-engineer-resume.pdf
-└── README.md          # This file
-```
+`.npmrc` sets `legacy-peer-deps=true` to work around an npm 10 resolver bug
+with vitest 5; plain `npm install` works everywhere.
 
-## 🛠️ Technologies Used
+## Content
 
-- **HTML5**: Semantic markup
-- **CSS3**: Modern styling with CSS Grid and Flexbox
-- **JavaScript**: Vanilla JS for interactivity
-- **Google Fonts**: Sora and Work Sans
+All copy, projects, experience, certifications, publications and links live in
+`src/content.ts`, a verbatim port of the previous site's content file. Tests in
+`src/__tests__/content.test.ts` enforce the house rules:
 
-## 📋 Sections
+- No invented metrics. Skills are categorical, no proficiency numbers.
+- Artie Labs pull requests are opened, never "merged".
+- MCP Trust Scanner is roadmap: dashed border, ROADMAP badge, last in the index.
+- `downgrade` is IN PROGRESS and publishes no test count.
+- loopcheck's recall figure (0.33) ships with its small-sample caveat.
+- Compsoft Technologies is NLP sentiment work only.
+- No em dashes anywhere.
 
-1. **Hero/Landing**: Name, tagline, and call-to-action buttons
-2. **About Me**: Personal introduction and key statistics
-3. **Experience**: Timeline of work experience with technologies used
-4. **Projects**: Featured projects with highlights and tech stacks
-5. **Skills**: Categorized technical skills
-6. **Education**: Academic background and coursework
-7. **Certifications**: Industry certifications and professional simulations
-8. **Publications**: Published research and papers
-9. **Contact**: Contact form and social links
+Project order in the index: flagship (ForgeSync), then featured, then the rest
+in content order, roadmap last. Numbers are stable identities and never change
+when the grid is filtered.
 
-## 🎯 Setup Instructions
+## Deploy
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/thebharathkumar/thereportfo.git
-   cd thereportfo
-   ```
+Vercel: import the repo. `vercel.json` sets the build command, `dist/` as the
+output, and cache headers: `/assets/*` (content-hashed by Vite) is cached
+immutable for a year, `/` and `/index.html` always revalidate. Never put
+`immutable` on a path whose contents can change.
 
-2. **Add Resume PDFs**
-   - Place your resume PDF files in the `resumes/` folder
-   - Name them as specified in resumes/README.md
+GitHub Pages: use the official `actions/deploy-pages` workflow on `dist/`.
 
-3. **Open in Browser**
-   - Simply open `index.html` in your web browser
-   - Or use a local server:
-     ```bash
-     python -m http.server 8000
-     # Or
-     npx serve
-     ```
+`public/resume.pdf` is served at `/resume.pdf`. The committed PDF predates
+ForgeSync, loopcheck, costfloor and downgrade; replace the file, the link is
+stable.
 
-4. **Customize Content**
-   - Update contact information in `index.html`
-   - Modify colors in `styles.css` CSS variables section
-   - Add your project links and GitHub URLs
+## Effects
 
-## 🎨 Color Palette
-
-```css
---bg-primary: #F5E6D3          /* Warm beige background */
---bg-secondary: #FFFFFF        /* White sections */
---highlight-yellow: #F4D35E    /* Yellow highlights */
---highlight-blue: #2E5BFF      /* Blue buttons */
---text-primary: #1a1a1a        /* Main text */
---text-secondary: #4a4a4a      /* Secondary text */
---border-color: #2a2a2a        /* Section borders */
-```
-
-## 📱 Responsive Breakpoints
-
-- **Desktop**: 969px and above
-- **Tablet**: 768px - 968px
-- **Mobile**: Below 768px
-- **Small Mobile**: Below 480px
-
-## ✨ Key Features Explained
-
-### Resume Modal
-Click "Download Resume" to see a modal with 3 resume options:
-- Software Engineer Resume
-- Data Engineer Resume
-- ML/AI Engineer Resume
-
-### Contact Form
-The contact form uses `mailto:` to open the user's default email client with pre-filled information.
-
-### Smooth Scrolling
-Navigation links smoothly scroll to their respective sections with offset for the fixed navbar.
-
-### Scroll Animations
-Elements fade in and slide up as they enter the viewport using Intersection Observer API.
-
-## 🚀 Deployment
-
-### GitHub Pages
-1. Push to GitHub
-2. Go to repository Settings > Pages
-3. Select main branch as source
-4. Your site will be live at `https://yourusername.github.io/thereportfo`
-
-### Netlify
-1. Connect your GitHub repository
-2. Deploy settings:
-   - Build command: (none)
-   - Publish directory: `/`
-3. Deploy!
-
-### Vercel
-```bash
-vercel --prod
-```
-
-## 📝 Customization Guide
-
-### Update Personal Information
-1. Open `index.html`
-2. Search for contact details and update:
-   - Email addresses
-   - Phone number
-   - LinkedIn URL
-   - GitHub URL
-   - Location
-
-### Change Colors
-1. Open `styles.css`
-2. Modify CSS variables in the `:root` section
-3. All colors will update automatically
-
-### Add Projects
-1. Locate the projects section in `index.html`
-2. Copy an existing project card
-3. Update the content with your project details
-
-## 🐛 Browser Support
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-
-## 📄 License
-
-This project is open source and available for personal use.
-
-## 👤 Author
-
-**Bharath Kumar Rajesh**
-- Email: bharath.kr702@gmail.com
-- LinkedIn: [thebharathkumar](https://linkedin.com/in/thebharathkumar)
-- GitHub: [thebharathkumar](https://github.com/thebharathkumar)
-- Portfolio: thebharathkumar.netlify.app
-
-## 🙏 Acknowledgments
-
-- Design inspired by modern AI tool interfaces
-- Fonts from Google Fonts
-- Icons using Unicode emojis for lightweight performance
-
----
-
-Built with ❤️ by Bharath Kumar Rajesh
+- Dither: 1-bit Bayer ordered dithering. The hero uses an 8x8 matrix in GLSL
+  (arithmetic form, WebGL1 safe); covers use a 4x4 matrix in JS
+  (`src/lib/bayer.ts`, `src/lib/dither2d.ts`). Every cover is generated from
+  the project slug, so no two are alike and none is a fake screenshot.
+- Flashlight: a uniform in the hero shader. Brightness falloff is expressed as
+  dot density, so the output is never grey. Away from a fine pointer the light
+  drifts on its own.
+- Blob cursor: one shared eased pointer store (`src/lib/pointer.ts`) drives
+  both the blob and the flashlight, so they read as a single light source. The
+  native cursor stays visible; the blob is hidden on touch devices.
+- Loader: once per session, the flashlight opens like an iris while a counter
+  ticks through the 24 repositories, then the overlay dissolves in Bayer
+  order onto the hero. Skippable by any input, capped at 2s, skipped under
+  reduced motion or without WebGL.
+- Reduced motion: static field, no drift, no reveals, no entrance animation,
+  no loader. No WebGL: CSS dot pattern behind the hero, no loader.
